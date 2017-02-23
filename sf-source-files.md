@@ -1,5 +1,5 @@
 
-# <a name="S-source"></a>SF: Source files
+# <span id="S-source"></span>SF: Source files
 
 Distinguish between declarations (used as interfaces) and definitions (used as implementations).
 Use header files to represent interfaces and to emphasize logical structure.
@@ -20,7 +20,7 @@ Source file rule summary:
 * [SF.21: Don't use an unnamed (anonymous) namespace in a header](#Rs-unnamed)
 * [SF.22: Use an unnamed (anonymous) namespace for all internal/nonexported entities](#Rs-unnamed2)
 
-### <a name="Rs-file-suffix"></a>SF.1: Use a `.cpp` suffix for code files and `.h` for interface files if your project doesn't already follow another convention
+### <span id="Rs-file-suffix"></span>SF.1: Use a `.cpp` suffix for code files and `.h` for interface files if your project doesn't already follow another convention
 
 ##### Reason
 
@@ -67,7 +67,7 @@ Your IDE (if you use one) may have strong opinions about suffices.
 * Flag non-conventional file names.
 * Check that `.h` and `.cpp` (and equivalents) follow the rules below.
 
-### <a name="Rs-inline"></a>SF.2: A `.h` file may not contain object definitions or non-inline function definitions
+### <span id="Rs-inline"></span>SF.2: A `.h` file may not contain object definitions or non-inline function definitions
 
 ##### Reason
 
@@ -108,7 +108,7 @@ Linking `file1.cpp` and `file2.cpp` will give two linker errors.
 
 Check the positive list above.
 
-### <a name="Rs-declaration-header"></a>SF.3: Use `.h` files for all declarations used in multiple source files
+### <span id="Rs-declaration-header"></span>SF.3: Use `.h` files for all declarations used in multiple source files
 
 ##### Reason
 
@@ -130,7 +130,7 @@ The user of `bar` cannot know if the interface used is complete and correct. At 
 
 * Flag declarations of entities in other source files not placed in a `.h`.
 
-### <a name="Rs-include-order"></a>SF.4: Include `.h` files before other declarations in a file
+### <span id="Rs-include-order"></span>SF.4: Include `.h` files before other declarations in a file
 
 ##### Reason
 
@@ -173,7 +173,7 @@ However
 
 Easy.
 
-### <a name="Rs-consistency"></a>SF.5: A `.cpp` file must include the `.h` file(s) that defines its interface
+### <span id="Rs-consistency"></span>SF.5: A `.cpp` file must include the `.h` file(s) that defines its interface
 
 ##### Reason
 
@@ -214,7 +214,7 @@ The argument-type error for `bar` cannot be caught until link time because of th
 
 ???
 
-### <a name="Rs-using"></a>SF.6: Use `using namespace` directives for transition, for foundation libraries (such as `std`), or within a local scope (only)
+### <span id="Rs-using"></span>SF.6: Use `using namespace` directives for transition, for foundation libraries (such as `std`), or within a local scope (only)
 
 ##### Reason
 
@@ -269,7 +269,7 @@ and M functions each containing a `using namespace X`with N lines of code in tot
 
 Flag multiple `using namespace` directives for different namespaces in a single sourcefile.
 
-### <a name="Rs-using-directive"></a>SF.7: Don't write `using namespace` in a header file
+### <span id="Rs-using-directive"></span>SF.7: Don't write `using namespace` in a header file
 
 ##### Reason
 
@@ -294,7 +294,7 @@ Doing so takes away an `#include`r's ability to effectively disambiguate and to 
 
 Flag `using namespace` at global scope in a header file.
 
-### <a name="Rs-guards"></a>SF.8: Use `#include` guards for all `.h` files
+### <span id="Rs-guards"></span>SF.8: Use `#include` guards for all `.h` files
 
 ##### Reason
 
@@ -312,7 +312,7 @@ To avoid files being `#include`d several times.
 
 Flag `.h` files without `#include` guards.
 
-### <a name="Rs-cycles"></a>SF.9: Avoid cyclic dependencies among source files
+### <span id="Rs-cycles"></span>SF.9: Avoid cyclic dependencies among source files
 
 ##### Reason
 
@@ -338,7 +338,7 @@ Eliminate cycles; don't just break them with `#include` guards.
 
 Flag all cycles.
 
-### <a name="Rs-namespace"></a>SF.20: Use `namespace`s to express logical structure
+### <span id="Rs-namespace"></span>SF.20: Use `namespace`s to express logical structure
 
 ##### Reason
 
@@ -352,7 +352,7 @@ Flag all cycles.
 
 ???
 
-### <a name="Rs-unnamed"></a>SF.21: Don't use an unnamed (anonymous) namespace in a header
+### <span id="Rs-unnamed"></span>SF.21: Don't use an unnamed (anonymous) namespace in a header
 
 ##### Reason
 
@@ -366,7 +366,7 @@ It is almost always a bug to mention an unnamed namespace in a header file.
 
 * Flag any use of an anonymous namespace in a header file.
 
-### <a name="Rs-unnamed2"></a>SF.22: Use an unnamed (anonymous) namespace for all internal/nonexported entities
+### <span id="Rs-unnamed2"></span>SF.22: Use an unnamed (anonymous) namespace for all internal/nonexported entities
 
 ##### Reason
 
@@ -383,7 +383,7 @@ An API class and its members can't live in an unnamed namespace; but any "helper
 
 * ???
 
-# <a name="S-stdlib"></a>SL: The Standard Library
+# <span id="S-stdlib"></span>SL: The Standard Library
 
 Using only the bare language, every task is tedious (in any language).
 Using a suitable library any task can be reasonably simple.
@@ -409,7 +409,7 @@ Standard-library rule summary:
 * [SL.2: Prefer the standard library to other libraries](#Rsl-sl)
 * ???
 
-### <a name="Rsl-lib"></a>SL.1:  Use libraries wherever possible
+### <span id="Rsl-lib"></span>SL.1:  Use libraries wherever possible
 
 ##### Reason
 
@@ -418,14 +418,14 @@ Don't replicate the work of others.
 Benefit from other people's work when they make improvements.
 Help other people when you make improvements.
 
-### <a name="Rsl-sl"></a>SL.2: Prefer the standard library to other libraries
+### <span id="Rsl-sl"></span>SL.2: Prefer the standard library to other libraries
 
 ##### Reason
 
 More people know the standard library.
 It is more likely to be stable, well-maintained, and widely available than your own code or most other libraries.
 
-## <a name="SS-con"></a>SL.con: Containers
+## <span id="SS-con"></span>SL.con: Containers
 
 ???
 
@@ -435,7 +435,7 @@ Container rule summary:
 * [SL.con.2: Prefer using STL `vector` by default unless you have a reason to use a different container](#Rsl-vector)
 *  ???
 
-### <a name="Rsl-arrays"></a>SL.con.1: Prefer using STL `array` or `vector` instead of a C array
+### <span id="Rsl-arrays"></span>SL.con.1: Prefer using STL `array` or `vector` instead of a C array
 
 ##### Reason
 
@@ -461,7 +461,7 @@ For a variable-length array, use `std::vector`, which additionally can change it
 
 * Flag declaration of a C array inside a function or class that also declares an STL container (to avoid excessive noisy warnings on legacy non-STL code). To fix: At least change the C array to a `std::array`.
 
-### <a name="Rsl-vector"></a>SL.con.2: Prefer using STL `vector` by default unless you have a reason to use a different container
+### <span id="Rsl-vector"></span>SL.con.2: Prefer using STL `vector` by default unless you have a reason to use a different container
 
 ##### Reason
 
@@ -486,11 +486,11 @@ If you have a good reason to use another container, use that instead. For exampl
 
 * Flag a `vector` whose size never changes after construction (such as because it's `const` or because no non-`const` functions are called on it). To fix: Use an `array` instead.
 
-## <a name="SS-string"></a>SL.str: String
+## <span id="SS-string"></span>SL.str: String
 
 ???
 
-## <a name="SS-io"></a>SL.io: Iostream
+## <span id="SS-io"></span>SL.io: Iostream
 
 ???
 
@@ -502,15 +502,15 @@ Iostream rule summary:
 * [SL.io.50: Avoid `endl`](#Rio-endl)
 * [???](#???)
 
-### <a name="Rio-low"></a>SL.io.1: Use character-level input only when you have to
+### <span id="Rio-low"></span>SL.io.1: Use character-level input only when you have to
 
 ???
 
-### <a name="Rio-validate"></a>SL.io.2: When reading, always consider ill-formed input
+### <span id="Rio-validate"></span>SL.io.2: When reading, always consider ill-formed input
 
 ???
 
-### <a name="Rio-endl"></a>SL.io.50: Avoid `endl`
+### <span id="Rio-endl"></span>SL.io.50: Avoid `endl`
 
 ### Reason
 
@@ -533,15 +533,15 @@ For writing to a file, there is rarely a need to `flush`.
 Apart from the (occasionally important) issue of performance,
 the choice between `'\n'` and `endl` is almost completely aesthetic.
 
-## <a name="SS-regex"></a>SL.regex: Regex
+## <span id="SS-regex"></span>SL.regex: Regex
 
 ???
 
-## <a name="SS-chrono"></a>SL.chrono: Time
+## <span id="SS-chrono"></span>SL.chrono: Time
 
 ???
 
-## <a name="SS-clib"></a>SL.C: The C standard library
+## <span id="SS-clib"></span>SL.C: The C standard library
 
 ???
 
@@ -552,7 +552,7 @@ C standard library rule summary:
 * [???](#???)
 
 
-# <a name="S-A"></a>A: Architectural Ideas
+# <span id="S-A"></span>A: Architectural Ideas
 
 This section contains ideas about higher-level architectural ideas and libraries.
 
@@ -568,11 +568,11 @@ Architectural rule summary:
 * [???](#???)
 * [???](#???)
 
-### <a name="Ra-stable"></a>A.1 Separate stable from less stable part of code
+### <span id="Ra-stable"></span>A.1 Separate stable from less stable part of code
 
 ???
 
-### <a name="Ra-lib"></a>A.2 Express potentially reusable parts as a library
+### <span id="Ra-lib"></span>A.2 Express potentially reusable parts as a library
 
 ##### Reason
 
@@ -583,7 +583,7 @@ A library could be a set of headers (a "header only library") or a set of header
 A library can be statically or dynamically linked into a program, or it may be `#included`
 
 
-### <a name="Ra-dag"></a>A.4 There should be no cycles among libraries
+### <span id="Ra-dag"></span>A.4 There should be no cycles among libraries
 
 ##### Reason
 
@@ -600,7 +600,7 @@ For example:
 However, a library should not depend on another that depends on it.
 
 
-# <a name="S-not"></a>NR: Non-Rules and myths
+# <span id="S-not"></span>NR: Non-Rules and myths
 
 This section contains rules and guidelines that are popular somewhere, but that we deliberately don't recommend.
 We know full well that there have been times and places where these rules made sense, and we have used them ourselves at times.
@@ -625,7 +625,7 @@ Non-rule summary:
 * [NR.7: Don't: Make all data members `protected`](#Rnr-protected-data)
 * ???
 
-### <a name="Rnr-top"></a>NR.1: Don't: All declarations should be at the top of a function
+### <span id="Rnr-top"></span>NR.1: Don't: All declarations should be at the top of a function
 
 ##### Reason (not to follow this rule)
 
@@ -645,7 +645,7 @@ Fortunately, compilers catch many "used before set" errors.
 * [Always initialize an object](#Res-always)
 * [ES.21: Don't introduce a variable (or constant) before you need to use it](#Res-introduce)
 
-### <a name="Rnr-single-return"></a>NR.2: Don't: Have only a single `return`-statement in a function
+### <span id="Rnr-single-return"></span>NR.2: Don't: Have only a single `return`-statement in a function
 
 ##### Reason (not to follow this rule)
 
@@ -715,7 +715,7 @@ Also, this style is a temptation to use the [goto exit](#Rnr-goto-exit) non-rule
 * Keep functions short and simple
 * Feel free to use multiple `return` statements (and to throw exceptions).
 
-### <a name="Rnr-no-exceptions"></a>NR.3: Don't: Don't use exceptions
+### <span id="Rnr-no-exceptions"></span>NR.3: Don't: Don't use exceptions
 
 ##### Reason (not to follow this rule)
 
@@ -784,7 +784,7 @@ Remember
 * [RAII](#Re-raii)
 * Contracts/assertions: Use GSL's `Expects` and `Ensures` (until we get language support for contracts)
 
-### <a name="Rnr-lots-of-files"></a>NR.4: Don't: Place each class declaration in its own source file
+### <span id="Rnr-lots-of-files"></span>NR.4: Don't: Place each class declaration in its own source file
 
 ##### Reason (not to follow this rule)
 
@@ -799,7 +799,7 @@ Individual classes are rarely a good logical unit of maintenance and distributio
 
 * Use namespaces containing logically cohesive sets of classes and functions.
 
-### <a name="Rnr-two-phase-init"></a>NR.5: Don't: Don't do substantive work in a constructor; instead use two-phase initialization
+### <span id="Rnr-two-phase-init"></span>NR.5: Don't: Don't do substantive work in a constructor; instead use two-phase initialization
 
 ##### Reason (not to follow this rule)
 
@@ -816,7 +816,7 @@ and errors (when we didn't deal correctly with semi-constructed objects consiste
 * Always establish a class invariant in a constructor.
 * Don't define an object before it is needed.
 
-### <a name="Rnr-goto-exit"></a>NR.6: Don't: Place all cleanup actions at the end of a function and `goto exit`
+### <span id="Rnr-goto-exit"></span>NR.6: Don't: Place all cleanup actions at the end of a function and `goto exit`
 
 ##### Reason (not to follow this rule)
 
@@ -844,7 +844,7 @@ and spot the bug.
 * Use exceptions and [RAII](#Re-raii)
 * for non-RAII resources, use [`finally`](#Re-finally).
 
-### <a name="Rnr-protected-data"></a>NR.7: Don't: Make all data members `protected`
+### <span id="Rnr-protected-data"></span>NR.7: Don't: Make all data members `protected`
 
 ##### Reason (not to follow this rule)
 

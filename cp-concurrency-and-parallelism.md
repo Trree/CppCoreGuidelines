@@ -1,4 +1,4 @@
-# <a name="S-concurrency"></a>CP: Concurrency and Parallelism
+# <span id="S-concurrency"></span>CP: Concurrency and Parallelism
 
 We often want our computers to do many tasks at the same time (or at least make them appear to do them at the same time).
 The reasons for doing so varies (e.g., wanting to wait for many events using only a single processor, processing many data streams simultaneously, or utilizing many hardware facilities)
@@ -55,7 +55,7 @@ See also:
 * [CP.free: Lock-free programming](#SScp-free)
 * [CP.etc: Etc. concurrency rules](#SScp-etc)
 
-### <a name="Rconc-multi"></a>CP.1: Assume that your code will run as part of a multi-threaded program
+### <span id="Rconc-multi"></span>CP.1: Assume that your code will run as part of a multi-threaded program
 
 ##### Reason
 
@@ -220,7 +220,7 @@ was run as part of a multi-threaded program. Often years later.
 Typically, such programs lead to a painful effort to remove data races.
 Therefore, code that is never intended to run in a multi-threaded environment should be clearly labeled as such and ideally come with compile or run-time enforcement mechanisms to catch those usage bugs early.
 
-### <a name="Rconc-races"></a>CP.2: Avoid data races
+### <span id="Rconc-races"></span>CP.2: Avoid data races
 
 ##### Reason
 
@@ -888,7 +888,7 @@ Detached threads are hard to monitor.
 * More use of value types on the stack (and don't pass pointers around too much)
 * More use of immutable data (literals, `constexpr`, and `const`)
 
-### <a name="Rconc-data"></a>CP.3: Minimize explicit sharing of writable data
+### <span id="Rconc-data"></span>CP.3: Minimize explicit sharing of writable data
 
 ##### Reason
 
@@ -931,7 +931,7 @@ No locking is needed: You can't have a data race on a constant.
 ???
 
 
-### <a name="Rconc-task"></a>CP.4: Think in terms of tasks, rather than threads
+### <span id="Rconc-task"></span>CP.4: Think in terms of tasks, rather than threads
 
 ##### Reason
 
@@ -953,7 +953,7 @@ This is a potent argument for using higher level, more applications-oriented lib
 
 ???
 
-### <a name="Rconc-volatile"></a>CP.8: Don't try to use `volatile` for synchronization
+### <span id="Rconc-volatile"></span>CP.8: Don't try to use `volatile` for synchronization
 
 ##### Reason
 
@@ -1005,7 +1005,7 @@ Use a `mutex` for more complicated examples.
 
 [(rare) proper uses of `volatile`](#Rconc-volatile2)
 
-### <a name="Rconc-tools"></a>CP.9: Whenever feasible use tools to validate your concurrent code
+### <span id="Rconc-tools"></span>CP.9: Whenever feasible use tools to validate your concurrent code
 
 Experience shows that concurrent code is exceptionally hard to get right
 and that compile-time checking, run-time checks, and testing are less effective at finding concurrency errors
@@ -1043,7 +1043,7 @@ but it can only identify races seen in a given execution.
 
 It is up to an application builder to choose which support tools are valuable for a particular applications.
 
-## <a name="SScp-con"></a>CP.con: Concurrency
+## <span id="SScp-con"></span>CP.con: Concurrency
 
 This section focuses on relatively ad-hoc uses of multiple threads communicating through shared data.
 
@@ -1078,7 +1078,7 @@ Concurrency rule summary:
 * ??? Time multiplexing
 * ??? when/how to use `new thread`
 
-### <a name="Rconc-raii"></a>CP.20: Use RAII, never plain `lock()`/`unlock()`
+### <span id="Rconc-raii"></span>CP.20: Use RAII, never plain `lock()`/`unlock()`
 
 ##### Reason
 
@@ -1110,7 +1110,7 @@ Sooner or later, someone will forget the `mtx.unlock()`, place a `return` in the
 Flag calls of member `lock()` and `unlock()`.  ???
 
 
-### <a name="Rconc-lock"></a>CP.21: Use `std::lock()` or `std::scoped_lock` to acquire multiple `mutex`es
+### <span id="Rconc-lock"></span>CP.21: Use `std::lock()` or `std::scoped_lock` to acquire multiple `mutex`es
 
 ##### Reason
 
@@ -1167,7 +1167,7 @@ Detect the acquisition of multiple `mutex`es.
 This is undecidable in general, but catching common simple examples (like the one above) is easy.
 
 
-### <a name="Rconc-unknown"></a>CP.22: Never call unknown code while holding a lock (e.g., a callback)
+### <span id="Rconc-unknown"></span>CP.22: Never call unknown code while holding a lock (e.g., a callback)
 
 ##### Reason
 
@@ -1211,7 +1211,7 @@ If, as it is likely, `f()` invokes operations on `*this`, we must make sure that
 * Flag calling a callback with a non-recursive `mutex` held
 
 
-### <a name="Rconc-join"></a>CP.23: Think of a joining `thread` as a scoped container
+### <span id="Rconc-join"></span>CP.23: Think of a joining `thread` as a scoped container
 
 ##### Reason
 
@@ -1250,7 +1250,7 @@ Ensure that `raii_thread`s don't `detach()`.
 After that, the usual lifetime and ownership (for local objects) enforcement applies.
 
 
-### <a name="Rconc-detach"></a>CP.24: Think of a detached `thread` as a global container
+### <span id="Rconc-detach"></span>CP.24: Think of a detached `thread` as a global container
 
 ##### Reason
 
@@ -1302,7 +1302,7 @@ If we cannot prove that a `thread` does not `detach()`, we must assume that it d
 After that, the usual lifetime and ownership (for global objects) enforcement applies.
 
 
-### <a name="Rconc-raii_thread"></a>CP.25: Prefer `gsl::raii_thread` over `std::thread` unless you plan to `detach()`
+### <span id="Rconc-raii_thread"></span>CP.25: Prefer `gsl::raii_thread` over `std::thread` unless you plan to `detach()`
 
 ##### Reason
 
@@ -1320,7 +1320,7 @@ Detached threads are hard to monitor.
 
 ???
 
-### <a name="Rconc-detached_thread"></a>CP.26: Prefer `gsl::detached_thread` over `std::thread` if you plan to `detach()`
+### <span id="Rconc-detached_thread"></span>CP.26: Prefer `gsl::detached_thread` over `std::thread` if you plan to `detach()`
 
 ##### Reason
 
@@ -1341,7 +1341,7 @@ Documenting that aids comprehension and helps static analysis.
 Flag unconditional `detach` on a plain `thread`
 
 
-### <a name="Rconc-thread"></a>CP.27: Use plain `std::thread` for `thread`s that detach based on a run-time condition (only)
+### <span id="Rconc-thread"></span>CP.27: Use plain `std::thread` for `thread`s that detach based on a run-time condition (only)
 
 ##### Reason
 
@@ -1371,7 +1371,7 @@ The plain `thread`s should be assumed to use the full generality of `std::thread
 
 
 
-### <a name="Rconc-join-undetached"></a>CP.28: Remember to join scoped `thread`s that are not `detach()`ed
+### <span id="Rconc-join-undetached"></span>CP.28: Remember to join scoped `thread`s that are not `detach()`ed
 
 ##### Reason
 
@@ -1416,7 +1416,7 @@ A `thread` that has not been `detach()`ed when it is destroyed terminates the pr
 * Flag `detach`s for `detached_thread`s
 
 
-### <a name="RRconc-pass"></a>CP.30: Do not pass pointers to local variables to non-`raii_thread`s
+### <span id="RRconc-pass"></span>CP.30: Do not pass pointers to local variables to non-`raii_thread`s
 
 ##### Reason
 
@@ -1444,7 +1444,7 @@ Use a `raii_thread` or don't pass the pointer.
 Flag pointers to locals passed in the constructor of a plain `thread`.
 
 
-### <a name="Rconc-data-by-value"></a>CP.31: Pass small amounts of data between threads by value, rather than by reference or pointer
+### <span id="Rconc-data-by-value"></span>CP.31: Pass small amounts of data between threads by value, rather than by reference or pointer
 
 ##### Reason
 
@@ -1481,7 +1481,7 @@ message passing or shared memory.
 ???
 
 
-### <a name="Rconc-shared"></a>[CP.32: To share ownership between unrelated `thread`s use `shared_ptr`
+### <span id="Rconc-shared"></span>[CP.32: To share ownership between unrelated `thread`s use `shared_ptr`
 
 ##### Reason
 
@@ -1504,7 +1504,7 @@ safe way to ensure proper deletion.
 ???
 
 
-### <a name="Rconc-switch"></a>CP.40: Minimize context switching
+### <span id="Rconc-switch"></span>CP.40: Minimize context switching
 
 ##### Reason
 
@@ -1519,7 +1519,7 @@ Context switches are expensive.
 ???
 
 
-### <a name="Rconc-create"></a>CP.41: Minimize thread creation and destruction
+### <span id="Rconc-create"></span>CP.41: Minimize thread creation and destruction
 
 ##### Reason
 
@@ -1575,7 +1575,7 @@ If your system has a good message queue, use it.
 ???
 
 
-### <a name="Rconc-wait"></a>CP.42: Don't `wait` without a condition
+### <span id="Rconc-wait"></span>CP.42: Don't `wait` without a condition
 
 ##### Reason
 
@@ -1645,7 +1645,7 @@ it will immediately go back to sleep, waiting.
 Flag all `wait`s without conditions.
 
 
-### <a name="Rconc-time"></a>CP.43: Minimize time spent in a critical section
+### <span id="Rconc-time"></span>CP.43: Minimize time spent in a critical section
 
 ##### Reason
 
@@ -1694,7 +1694,7 @@ Impossible in general.
 Flag "naked" `lock()` and `unlock()`.
 
 
-### <a name="Rconc-name"></a>CP.44: Remember to name your `lock_guard`s and `unique_lock`s
+### <span id="Rconc-name"></span>CP.44: Remember to name your `lock_guard`s and `unique_lock`s
 
 ##### Reason
 
@@ -1714,7 +1714,7 @@ Flag all unnamed `lock_guard`s and `unique_lock`s.
 
 
 
-### <a name="Rconc-mutex"></a>P.50: Define a `mutex` together with the data it guards. Use `synchronized_value<T>` where possible
+### <span id="Rconc-mutex"></span>P.50: Define a `mutex` together with the data it guards. Use `synchronized_value<T>` where possible
 
 ##### Reason
 
@@ -1742,7 +1742,7 @@ See the [WG21 proposal](http://wg21.link/p0290)) to add `synchronized_value` to 
 ??? Possible?
 
 
-## <a name="SScp-par"></a>CP.par: Parallelism
+## <span id="SScp-par"></span>CP.par: Parallelism
 
 By "parallelism" we refer to performing a task (more or less) simultaneously ("in parallel with") on many data items.
 
@@ -1755,7 +1755,7 @@ Parallelism rule summary:
 
 
 
-## <a name="SScp-mess"></a>CP.mess: Message passing
+## <span id="SScp-mess"></span>CP.mess: Message passing
 
 The standard-library facilities are quite low level, focused on the needs of close-to the hardware critical programming using `thread`s, `mutex`es, `atomic` types, etc.
 Most people shouldn't work at this level: it's error-prone and development is slow.
@@ -1774,7 +1774,7 @@ Message passing rules summary:
 ??? Is `std::async` worth using in light of future (and even existing, as libraries) parallelism facilities? What should the guidelines recommend if someone wants to parallelize, e.g., `std::accumulate` (with the additional precondition of commutativity), or merge sort?
 
 
-### <a name="Rconc-future"></a>CP.60: Use a `future` to return a value from a concurrent task
+### <span id="Rconc-future"></span>CP.60: Use a `future` to return a value from a concurrent task
 
 ##### Reason
 
@@ -1793,7 +1793,7 @@ The is no explicit locking and both correct (value) return and error (exception)
 
 ???
 
-### <a name="Rconc-async"></a>CP.61: Use a `async()` to spawn a concurrent task
+### <span id="Rconc-async"></span>CP.61: Use a `async()` to spawn a concurrent task
 
 ##### Reason
 
@@ -1817,7 +1817,7 @@ and unless you really need to optimize for many asynchronous tasks, stick with `
 ???
 
 
-## <a name="SScp-vec"></a>CP.vec: Vectorization
+## <span id="SScp-vec"></span>CP.vec: Vectorization
 
 Vectorization is a technique for executing a number of tasks concurrently without introducing explicit synchronization.
 An operation is simply applied to elements of a data structure (a vector, an array, etc.) in parallel.
@@ -1829,7 +1829,7 @@ Vectorization rule summary:
 * ???
 * ???
 
-## <a name="SScp-free"></a>CP.free: Lock-free programming
+## <span id="SScp-free"></span>CP.free: Lock-free programming
 
 Synchronization using `mutex`es and `condition_variable`s can be relatively expensive.
 Furthermore, it can lead to deadlock.
@@ -1850,7 +1850,7 @@ Lock-free programming rule summary:
 * how/when to compare and swap
 
 
-### <a name="Rconc-lockfree"></a>CP.100: Don't use lock-free programming unless you absolutely have to
+### <span id="Rconc-lockfree"></span>CP.100: Don't use lock-free programming unless you absolutely have to
 
 ##### Reason
 
@@ -1883,7 +1883,7 @@ Higher-level concurrency mechanisms, such as `thread`s and `mutex`es are impleme
 **Alternative**: Use lock-free data structures implemented by others as part of some library.
 
 
-### <a name="Rconc-distrust"></a>CP.101: Distrust your hardware/compiler combination
+### <span id="Rconc-distrust"></span>CP.101: Distrust your hardware/compiler combination
 
 ##### Reason
 
@@ -1903,7 +1903,7 @@ Testing - often to an extreme extent - is essential.
 Have strong rules for re-testing in place that covers any change in hardware, operating system, compiler, and libraries.
 
 
-### <a name="Rconc-literature"></a>CP.102: Carefully study the literature
+### <span id="Rconc-literature"></span>CP.102: Carefully study the literature
 
 ##### Reason
 
@@ -1923,7 +1923,7 @@ Become an expert before shipping lock-free code for others to use.
 * Damian Dechev, Peter Pirkelbauer, Nicolas Rouquette, and Bjarne Stroustrup: Semantically Enhanced Containers for Concurrent Real-Time Systems. Proc. 16th Annual IEEE International Conference and Workshop on the Engineering of Computer Based Systems (IEEE ECBS). April 2009.
 
 
-### <a name="Rconc-double"></a>CP.110: Do not write your own double-checked locking for initialization
+### <span id="Rconc-double"></span>CP.110: Do not write your own double-checked locking for initialization
 
 ##### Reason
 
@@ -1966,7 +1966,7 @@ Example with thread-safe static local variables of C++11.
 ??? Is it possible to detect the idiom?
 
 
-### <a name="Rconc-double-pattern"></a>CP.111: Use a conventional pattern if you really need double-checked locking
+### <span id="Rconc-double-pattern"></span>CP.111: Use a conventional pattern if you really need double-checked locking
 
 ##### Reason
 
@@ -2014,14 +2014,14 @@ In the example above (state == SOME_ACTION_NEEDED) could be any condition. It do
 ??? Is it possible to detect the idiom?
 
 
-## <a name="SScp-etc"></a>CP.etc: Etc. concurrency rules
+## <span id="SScp-etc"></span>CP.etc: Etc. concurrency rules
 
 These rules defy simple categorization:
 
 * [CP.200: Use `volatile` only to talk to non-C++ memory](#Rconc-volatile2)
 * [CP.201: ??? Signals](#Rconc-signal)
 
-### <a name="Rconc-volatile2"></a>CP.200: Use `volatile` only to talk to non-C++ memory
+### <span id="Rconc-volatile2"></span>CP.200: Use `volatile` only to talk to non-C++ memory
 
 ##### Reason
 
@@ -2082,7 +2082,7 @@ In C++, unlike in some other languages, `volatile` has [nothing to do with synch
 * Flag `volatile T` local and member variables; almost certainly you intended to use `atomic<T>` instead.
 * ???
 
-### <a name="Rconc-signal"></a>CP.201: ??? Signals
+### <span id="Rconc-signal"></span>CP.201: ??? Signals
 
 ???UNIX signal handling???. May be worth reminding how little is async-signal-safe, and how to communicate with a signal handler (best is probably "not at all")
 >>>>>>> a47e5a627f7b2ef31767de0251fd8958c85a16ee

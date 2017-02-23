@@ -1,5 +1,5 @@
 
-# <a name="S-const"></a>Con: Constants and Immutability
+# <span id="S-const"></span>Con: Constants and Immutability
 
 You can't have a race condition on a constant.
 It is easier to reason about a program when many of the objects cannot change their values.
@@ -13,7 +13,7 @@ Constant rule summary:
 * [Con.4: Use `const` to define objects with values that do not change after construction](#Rconst-const)
 * [Con.5: Use `constexpr` for values that can be computed at compile time](#Rconst-constexpr)
 
-### <a name="Rconst-immutable"></a>Con.1: By default, make objects immutable
+### <span id="Rconst-immutable"></span>Con.1: By default, make objects immutable
 
 ##### Reason
 
@@ -40,7 +40,7 @@ Note that function parameter is a local variable so changes to it are local.
 
 * Flag non-const variables that are not modified (except for parameters to avoid many false positives)
 
-### <a name="Rconst-fct"></a>Con.2: By default, make member functions `const`
+### <span id="Rconst-fct"></span>Con.2: By default, make member functions `const`
 
 ##### Reason
 
@@ -91,7 +91,7 @@ e.g. because it is in a library that you cannot modify.
 
 * Flag a member function that is not marked `const`, but that does not perform a non-`const` operation on any member variable.
 
-### <a name="Rconst-ref"></a>Con.3: By default, pass pointers and references to `const`s
+### <span id="Rconst-ref"></span>Con.3: By default, pass pointers and references to `const`s
 
 ##### Reason
 
@@ -117,7 +117,7 @@ but that should be done only when the called function is supposed to modify the 
 * Flag function that does not modify an object passed by  pointer or reference to non-`const`
 * Flag a function that (using a cast) modifies an object passed by pointer or reference to `const`
 
-### <a name="Rconst-const"></a>Con.4: Use `const` to define objects with values that do not change after construction
+### <span id="Rconst-const"></span>Con.4: Use `const` to define objects with values that do not change after construction
 
 ##### Reason
 
@@ -142,7 +142,7 @@ As `x` is not `const`, we must assume that it is modified somewhere in the loop.
 
 * Flag unmodified non-`const` variables.
 
-### <a name="Rconst-constexpr"></a>Con.5: Use `constexpr` for values that can be computed at compile time
+### <span id="Rconst-constexpr"></span>Con.5: Use `constexpr` for values that can be computed at compile time
 
 ##### Reason
 

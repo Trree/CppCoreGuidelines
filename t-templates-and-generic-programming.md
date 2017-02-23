@@ -1,5 +1,5 @@
 
-# <a name="S-templates"></a>T: Templates and generic programming
+# <span id="S-templates"></span>T: Templates and generic programming
 
 Generic programming is programming using types and algorithms parameterized by types, values, and algorithms.
 In C++, generic programming is supported by the `template` language mechanisms.
@@ -105,11 +105,11 @@ Other template rules summary:
 * [T.150: Check that a class matches a concept using `static_assert`](#Rt-check-class)
 * [T.??: ????](#Rt-???)
 
-## <a name="SS-GP"></a>T.gp: Generic programming
+## <span id="SS-GP"></span>T.gp: Generic programming
 
 Generic programming is programming using types and algorithms parameterized by types, values, and algorithms.
 
-### <a name="Rt-raise"></a>T.1: Use templates to raise the level of abstraction of code
+### <span id="Rt-raise"></span>T.1: Use templates to raise the level of abstraction of code
 
 ##### Reason
 
@@ -178,7 +178,7 @@ If you use GCC 6.1, you can uncomment them.
 * Flag algorithms with "overly simple" requirements, such as direct use of specific operators without a concept.
 * Do not flag the definition of the "overly simple" concepts themselves; they may simply be building blocks for more useful concepts.
 
-### <a name="Rt-algo"></a>T.2: Use templates to express algorithms that apply to many argument types
+### <span id="Rt-algo"></span>T.2: Use templates to express algorithms that apply to many argument types
 
 ##### Reason
 
@@ -205,7 +205,7 @@ Don't overabstract.
 
 ??? tough, probably needs a human
 
-### <a name="Rt-cont"></a>T.3: Use templates to express containers and ranges
+### <span id="Rt-cont"></span>T.3: Use templates to express containers and ranges
 
 ##### Reason
 
@@ -247,7 +247,7 @@ See [Stable base](#Rt-abi).
 
 * Flag uses of `void*`s and casts outside low-level implementation code
 
-### <a name="Rt-expr"></a>T.4: Use templates to express syntax tree manipulation
+### <span id="Rt-expr"></span>T.4: Use templates to express syntax tree manipulation
 
 ##### Reason
 
@@ -259,7 +259,7 @@ See [Stable base](#Rt-abi).
 
 **Exceptions**: ???
 
-### <a name="Rt-generic-oo"></a>T.5: Combine generic and OO techniques to amplify their strengths, not their costs
+### <span id="Rt-generic-oo"></span>T.5: Combine generic and OO techniques to amplify their strengths, not their costs
 
 ##### Reason
 
@@ -300,7 +300,7 @@ Avoid this, even though the standard-library facets made this mistake.
 
 See the reference to more specific rules.
 
-## <a name="SS-concepts"></a>T.concepts: Concept rules
+## <span id="SS-concepts"></span>T.concepts: Concept rules
 
 Concepts is a facility for specifying requirements for template arguments.
 It is an [ISO technical specification](#Ref-conceptsTS), but currently supported only by GCC.
@@ -328,9 +328,9 @@ Concept definition rule summary:
 * [T.26: Prefer to define concepts in terms of use-patterns rather than simple syntax](#Rt-use)
 * ???
 
-## <a name="SS-concept-use"></a>T.con-use: Concept use
+## <span id="SS-concept-use"></span>T.con-use: Concept use
 
-### <a name="Rt-concepts"></a>T.10: Specify concepts for all template arguments
+### <span id="Rt-concepts"></span>T.10: Specify concepts for all template arguments
 
 ##### Reason
 
@@ -386,7 +386,7 @@ This is typically only needed when (as part of template metaprogramming code) we
 
 Flag template type arguments without concepts
 
-### <a name="Rt-std-concepts"></a>T.11: Whenever possible use standard concepts
+### <span id="Rt-std-concepts"></span>T.11: Whenever possible use standard concepts
 
 ##### Reason
 
@@ -426,7 +426,7 @@ Hard.
 * Look for unconstrained arguments, templates that use "unusual"/non-standard concepts, templates that use "homebrew" concepts without axioms.
 * Develop a concept-discovery tool (e.g., see [an early experiment](http://www.stroustrup.com/sle2010_webversion.pdf)).
 
-### <a name="Rt-auto"></a>T.12: Prefer concept names over `auto` for local variables
+### <span id="Rt-auto"></span>T.12: Prefer concept names over `auto` for local variables
 
 ##### Reason
 
@@ -442,7 +442,7 @@ Hard.
 
 * ???
 
-### <a name="Rt-shorthand"></a>T.13: Prefer the shorthand notation for simple, single-type argument concepts
+### <span id="Rt-shorthand"></span>T.13: Prefer the shorthand notation for simple, single-type argument concepts
 
 ##### Reason
 
@@ -476,7 +476,7 @@ If you use a compiler that supports concepts (e.g., GCC 6.1), you can remove the
 * Not feasible in the short term when people convert from the `<typename T>` and `<class T`> notation.
 * Later, flag declarations that first introduces a typename and then constrains it with a simple, single-type-argument concept.
 
-## <a name="SS-concepts-def"></a>T.concepts.def: Concept definition rules
+## <span id="SS-concepts-def"></span>T.concepts.def: Concept definition rules
 
 Defining good concepts is non-trivial.
 Concepts are meant to represent fundamental concepts in an application domain (hence the name "concepts").
@@ -486,7 +486,7 @@ and will not give the full benefits of the mechanism.
 Obviously, defining concepts will be most useful for code that can use an implementation (e.g., GCC 6.1),
 but defining concepts is in itself a useful design technique and help catch conceptual errors and clean up the concepts (sic!) of an implementation.
 
-### <a name="Rt-low"></a>T.20: Avoid "concepts" without meaningful semantics
+### <span id="Rt-low"></span>T.20: Avoid "concepts" without meaningful semantics
 
 ##### Reason
 
@@ -553,7 +553,7 @@ Concepts with multiple operations have far lower chance of accidentally matching
 * Flag uses of `enable_if` that appears to simulate single-operation `concepts`.
 
 
-### <a name="RT-operations"></a>T.21: Require a complete set of operations for a concept
+### <span id="RT-operations"></span>T.21: Require a complete set of operations for a concept
 
 ##### Reason
 
@@ -643,7 +643,7 @@ Ideally, that rule should be language supported by giving you comparison operato
   Yes, `std::string` is "odd", but it's too late to change that.
 
 
-### <a name="Rt-axiom"></a>T.22: Specify axioms for concepts
+### <span id="Rt-axiom"></span>T.22: Specify axioms for concepts
 
 ##### Reason
 
@@ -706,7 +706,7 @@ Each new use case may require such an incomplete concepts to be improved.
 
 * Look for the word "axiom" in concept definition comments
 
-### <a name="Rt-refine"></a>T.23: Differentiate a refined concept from its more general case by adding new use patterns.
+### <span id="Rt-refine"></span>T.23: Differentiate a refined concept from its more general case by adding new use patterns.
 
 ##### Reason
 
@@ -730,7 +730,7 @@ If two concepts have exactly the same requirements, they are logically equivalen
 * Flag a concept that has exactly the same requirements as another already-seen concept (neither is more refined).
 To disambiguate them, see [T.24](#Rt-tag).
 
-### <a name="Rt-tag"></a>T.24: Use tag classes or traits to differentiate concepts that differ only in semantics.
+### <span id="Rt-tag"></span>T.24: Use tag classes or traits to differentiate concepts that differ only in semantics.
 
 ##### Reason
 
@@ -767,7 +767,7 @@ Prefer the standard-library ones.
 * The compiler flags ambiguous use of identical concepts.
 * Flag the definition of identical concepts.
 
-### <a name="Rt-not"></a>T.25: Avoid complementary constraints
+### <span id="Rt-not"></span>T.25: Avoid complementary constraints
 
 ##### Reason
 
@@ -833,7 +833,7 @@ Now the opportunities for errors multiply.
 
 * Flag pairs of functions with `C<T>` and `!C<T>` constraints
 
-### <a name="Rt-use"></a>T.26: Prefer to define concepts in terms of use-patterns rather than simple syntax
+### <span id="Rt-use"></span>T.26: Prefer to define concepts in terms of use-patterns rather than simple syntax
 
 ##### Reason
 
@@ -863,14 +863,14 @@ By "meaningless" we mean that we cannot specify the semantics of `has_equal` in 
 
 ???
 
-## <a name="SS-temp-interface"></a>Template interfaces
+## <span id="SS-temp-interface"></span>Template interfaces
 
 Over the years, programming with templates have suffered from a weak distinction between the interface of a template
 and its implementation.
 Before concepts, that distinction had no direct language support.
 However, the interface to a template is a critical concept - a contract between a user and an implementer - and should be carefully designed.
 
-### <a name="Rt-fo"></a>T.40: Use function objects to pass operations to algorithms
+### <span id="Rt-fo"></span>T.40: Use function objects to pass operations to algorithms
 
 ##### Reason
 
@@ -908,7 +908,7 @@ The performance argument depends on compiler and optimizer technology.
 * Flag pointers to functions passed as arguments to a template (risk of false positives).
 
 
-### <a name="Rt-essential"></a>T.41: Require only essential properties in a template's concepts
+### <span id="Rt-essential"></span>T.41: Require only essential properties in a template's concepts
 
 ##### Reason
 
@@ -963,7 +963,7 @@ It can be hard to decide which properties of a type is essential and which are n
 
 ???
 
-### <a name="Rt-alias"></a>T.42: Use template aliases to simplify notation and hide implementation details
+### <span id="Rt-alias"></span>T.42: Use template aliases to simplify notation and hide implementation details
 
 ##### Reason
 
@@ -1016,7 +1016,7 @@ A simple, common use could be expressed: "Wrap traits!"
 * Flag use of `typename` as a disambiguator outside `using` declarations.
 * ???
 
-### <a name="Rt-using"></a>T.43: Prefer `using` over `typedef` for defining aliases
+### <span id="Rt-using"></span>T.43: Prefer `using` over `typedef` for defining aliases
 
 ##### Reason
 
@@ -1040,7 +1040,7 @@ Uniformity: `using` is syntactically similar to `auto`.
 
 * Flag uses of `typedef`. This will give a lot of "hits" :-(
 
-### <a name="Rt-deduce"></a>T.44: Use function templates to deduce class template argument types (where feasible)
+### <span id="Rt-deduce"></span>T.44: Use function templates to deduce class template argument types (where feasible)
 
 ##### Reason
 
@@ -1076,7 +1076,7 @@ For example:
 
 Flag uses where an explicitly specialized type exactly matches the types of the arguments used.
 
-### <a name="Rt-regular"></a>T.46: Require template arguments to be at least `Regular` or `SemiRegular`
+### <span id="Rt-regular"></span>T.46: Require template arguments to be at least `Regular` or `SemiRegular`
 
 ##### Reason
 
@@ -1110,7 +1110,7 @@ Semiregular requires default constructible.
 
 * Flag types that are not at least `SemiRegular`.
 
-### <a name="Rt-visible"></a>T.47: Avoid highly visible unconstrained templates with common names
+### <span id="Rt-visible"></span>T.47: Avoid highly visible unconstrained templates with common names
 
 ##### Reason
 
@@ -1163,7 +1163,7 @@ Unfortunately this will get many false positives; the standard library violates 
 Flag templates defined in a namespace where concrete types are also defined (maybe not feasible until we have concepts).
 
 
-### <a name="Rt-concept-def"></a>T.48: If your compiler does not support concepts, fake them with `enable_if`
+### <span id="Rt-concept-def"></span>T.48: If your compiler does not support concepts, fake them with `enable_if`
 
 ##### Reason
 
@@ -1183,7 +1183,7 @@ Faking concept overloading using `enable_if` sometimes forces us to use that err
 
 ???
 
-### <a name="Rt-erasure"></a>T.49: Where possible, avoid type-erasure
+### <span id="Rt-erasure"></span>T.49: Where possible, avoid type-erasure
 
 ##### Reason
 
@@ -1203,13 +1203,13 @@ Type erasure incurs an extra level of indirection by hiding type information beh
 ##### Note
 
 
-## <a name="SS-temp-def"></a>T.def: Template definitions
+## <span id="SS-temp-def"></span>T.def: Template definitions
 
 A template definition (class or function) can contain arbitrary code, so only a comprehensive review of C++ programming techniques would cover this topic.
 However, this section focuses on what is specific to template implementation.
 In particular, it focuses on a template definition's dependence on its context.
 
-### <a name="Rt-depend"></a>T.60: Minimize a template's context dependencies
+### <span id="Rt-depend"></span>T.60: Minimize a template's context dependencies
 
 ##### Reason
 
@@ -1250,7 +1250,7 @@ See also [T.69](#Rt-customization)
 
 ??? Tricky
 
-### <a name="Rt-scary"></a>T.61: Do not over-parameterize members (SCARY)
+### <span id="Rt-scary"></span>T.61: Do not over-parameterize members (SCARY)
 
 ##### Reason
 
@@ -1315,7 +1315,7 @@ This looks innocent enough, but ???
 * Flag member types that do not depend on every template argument
 * Flag member functions that do not depend on every template argument
 
-### <a name="Rt-nondependent"></a>T.62: Place non-dependent class template members in a non-templated base class
+### <span id="Rt-nondependent"></span>T.62: Place non-dependent class template members in a non-templated base class
 
 ##### Reason
 
@@ -1355,7 +1355,7 @@ For N == 1, we have a choice of a base class of a class in the surrounding scope
 
 * Flag ???
 
-### <a name="Rt-specialization"></a>T.64: Use specialization to provide alternative implementations of class templates
+### <span id="Rt-specialization"></span>T.64: Use specialization to provide alternative implementations of class templates
 
 ##### Reason
 
@@ -1376,7 +1376,7 @@ Specialization offers a powerful mechanism for providing alternative implementat
 
 ???
 
-### <a name="Rt-tag-dispatch"></a>T.65: Use tag dispatch to provide alternative implementations of a function
+### <span id="Rt-tag-dispatch"></span>T.65: Use tag dispatch to provide alternative implementations of a function
 
 ##### Reason
 
@@ -1443,7 +1443,7 @@ When `concept`s become widely available such alternatives can be distinguished d
 ???
 
 
-### <a name="Rt-specialization2"></a>T.67: Use specialization to provide alternative implementations for irregular types
+### <span id="Rt-specialization2"></span>T.67: Use specialization to provide alternative implementations for irregular types
 
 ##### Reason
 
@@ -1457,7 +1457,7 @@ When `concept`s become widely available such alternatives can be distinguished d
 
 ???
 
-### <a name="Rt-cast"></a>T.68: Use `{}` rather than `()` within templates to avoid ambiguities
+### <span id="Rt-cast"></span>T.68: Use `{}` rather than `()` within templates to avoid ambiguities
 
 ##### Reason
 
@@ -1481,7 +1481,7 @@ When `concept`s become widely available such alternatives can be distinguished d
 * flag function-style casts
 
 
-### <a name="Rt-customization"></a>T.69: Inside a template, don't make an unqualified nonmember function call unless you intend it to be a customization point
+### <span id="Rt-customization"></span>T.69: Inside a template, don't make an unqualified nonmember function call unless you intend it to be a customization point
 
 ##### Reason
 
@@ -1531,13 +1531,13 @@ this can cause problems like [unintentionally invoking unconstrained function te
 * In a template, flag an unqualified call to a nonmember function that passes a variable of dependent type when there is a nonmember function of the same name in the template's namespace.
 
 
-## <a name="SS-temp-hier"></a>T.temp-hier: Template and hierarchy rules:
+## <span id="SS-temp-hier"></span>T.temp-hier: Template and hierarchy rules:
 
 Templates are the backbone of C++'s support for generic programming and class hierarchies the backbone of its support
 for object-oriented programming.
 The two language mechanisms can be used effectively in combination, but a few design pitfalls must be avoided.
 
-### <a name="Rt-hier"></a>T.80: Do not naively templatize a class hierarchy
+### <span id="Rt-hier"></span>T.80: Do not naively templatize a class hierarchy
 
 ##### Reason
 
@@ -1578,7 +1578,7 @@ see ["stable base"](#Rt-abi) and [OO and GP](#Rt-generic-oo)
 
 * Flag virtual functions that depend on a template argument. ??? False positives
 
-### <a name="Rt-array"></a>T.81: Do not mix hierarchies and arrays
+### <span id="Rt-array"></span>T.81: Do not mix hierarchies and arrays
 
 ##### Reason
 
@@ -1627,7 +1627,7 @@ Note that the assignment in `maul2()` violated the no-slicing [Rule](#???).
 
 * Detect this horror!
 
-### <a name="Rt-linear"></a>T.82: Linearize a hierarchy when virtual functions are undesirable
+### <span id="Rt-linear"></span>T.82: Linearize a hierarchy when virtual functions are undesirable
 
 ##### Reason
 
@@ -1641,7 +1641,7 @@ Note that the assignment in `maul2()` violated the no-slicing [Rule](#???).
 
 ???
 
-### <a name="Rt-virtual"></a>T.83: Do not declare a member function template virtual
+### <span id="Rt-virtual"></span>T.83: Do not declare a member function template virtual
 
 ##### Reason
 
@@ -1669,7 +1669,7 @@ Double dispatch, visitors, calculate which function to call
 
 The compiler handles that.
 
-### <a name="Rt-abi"></a>T.84: Use a non-template core implementation to provide an ABI-stable interface
+### <span id="Rt-abi"></span>T.84: Use a non-template core implementation to provide an ABI-stable interface
 
 ##### Reason
 
@@ -1719,11 +1719,11 @@ Instead of using a separate "base" type, another common technique is to speciali
 
 ???
 
-## <a name="SS-variadic"></a>T.var: Variadic template rules
+## <span id="SS-variadic"></span>T.var: Variadic template rules
 
 ???
 
-### <a name="Rt-variadic"></a>T.100: Use variadic templates when you need a function that takes a variable number of arguments of a variety of types
+### <span id="Rt-variadic"></span>T.100: Use variadic templates when you need a function that takes a variable number of arguments of a variety of types
 
 ##### Reason
 
@@ -1737,7 +1737,7 @@ Variadic templates is the most general mechanism for that, and is both efficient
 
 * Flag uses of `va_arg` in user code.
 
-### <a name="Rt-variadic-pass"></a>T.101: ??? How to pass arguments to a variadic template ???
+### <span id="Rt-variadic-pass"></span>T.101: ??? How to pass arguments to a variadic template ???
 
 ##### Reason
 
@@ -1751,7 +1751,7 @@ Variadic templates is the most general mechanism for that, and is both efficient
 
 ???
 
-### <a name="Rt-variadic-process"></a>T.102: How to process arguments to a variadic template
+### <span id="Rt-variadic-process"></span>T.102: How to process arguments to a variadic template
 
 ##### Reason
 
@@ -1765,7 +1765,7 @@ Variadic templates is the most general mechanism for that, and is both efficient
 
 ???
 
-### <a name="Rt-variadic-not"></a>T.103: Don't use variadic templates for homogeneous argument lists
+### <span id="Rt-variadic-not"></span>T.103: Don't use variadic templates for homogeneous argument lists
 
 ##### Reason
 
@@ -1779,7 +1779,7 @@ There are more precise ways of specifying a homogeneous sequence, such as an `in
 
 ???
 
-## <a name="SS-meta"></a>T.meta: Template metaprogramming (TMP)
+## <span id="SS-meta"></span>T.meta: Template metaprogramming (TMP)
 
 Templates provide a general mechanism for compile-time programming.
 
@@ -1787,7 +1787,7 @@ Metaprogramming is programming where at least one input or one result is a type.
 Templates offer Turing-complete (modulo memory capacity) duck typing at compile time.
 The syntax and techniques needed are pretty horrendous.
 
-### <a name="Rt-metameta"></a>T.120: Use template metaprogramming only when you really need to
+### <span id="Rt-metameta"></span>T.120: Use template metaprogramming only when you really need to
 
 ##### Reason
 
@@ -1816,7 +1816,7 @@ Instead, use concepts. But see [How to emulate concepts if you don't have langua
 
 If you feel the need to hide your template metaprogramming in macros, you have probably gone too far.
 
-### <a name="Rt-emulate"></a>T.121: Use template metaprogramming primarily to emulate concepts
+### <span id="Rt-emulate"></span>T.121: Use template metaprogramming primarily to emulate concepts
 
 ##### Reason
 
@@ -1845,7 +1845,7 @@ Such code is much simpler using concepts:
 
 ???
 
-### <a name="Rt-tmp"></a>T.122: Use templates (usually template aliases) to compute types at compile time
+### <span id="Rt-tmp"></span>T.122: Use templates (usually template aliases) to compute types at compile time
 
 ##### Reason
 
@@ -1863,7 +1863,7 @@ Template metaprogramming is the only directly supported and half-way principled 
 
 ???
 
-### <a name="Rt-fct"></a>T.123: Use `constexpr` functions to compute values at compile time
+### <span id="Rt-fct"></span>T.123: Use `constexpr` functions to compute values at compile time
 
 ##### Reason
 
@@ -1891,7 +1891,7 @@ Often a `constexpr` function implies less compile-time overhead than alternative
 
 * Flag template metaprograms yielding a value. These should be replaced with `constexpr` functions.
 
-### <a name="Rt-std-tmp"></a>T.124: Prefer to use standard-library TMP facilities
+### <span id="Rt-std-tmp"></span>T.124: Prefer to use standard-library TMP facilities
 
 ##### Reason
 
@@ -1905,7 +1905,7 @@ Facilities defined in the standard, such as `conditional`, `enable_if`, and `tup
 
 ???
 
-### <a name="Rt-lib"></a>T.125: If you need to go beyond the standard-library TMP facilities, use an existing library
+### <span id="Rt-lib"></span>T.125: If you need to go beyond the standard-library TMP facilities, use an existing library
 
 ##### Reason
 
@@ -1920,9 +1920,9 @@ Write your own "advanced TMP support" only if you really have to.
 
 ???
 
-## <a name="SS-temp-other"></a>Other template rules
+## <span id="SS-temp-other"></span>Other template rules
 
-### <a name="Rt-name"></a>T.140: Name all operations with potential for reuse
+### <span id="Rt-name"></span>T.140: Name all operations with potential for reuse
 
 ##### Reason
 
@@ -1987,7 +1987,7 @@ whether functions, lambdas, or operators.
 * (hard) flag similar lambdas
 * ???
 
-### <a name="Rt-lambda"></a>T.141: Use an unnamed lambda if you need a simple function object in one place only
+### <span id="Rt-lambda"></span>T.141: Use an unnamed lambda if you need a simple function object in one place only
 
 ##### Reason
 
@@ -2007,7 +2007,7 @@ Naming a lambda can be useful for clarity even if it is used only once.
 
 * Look for identical and near identical lambdas (to be replaced with named functions or named lambdas).
 
-### <a name="Rt-var"></a>T.142?: Use template variables to simplify notation
+### <span id="Rt-var"></span>T.142?: Use template variables to simplify notation
 
 ##### Reason
 
@@ -2021,7 +2021,7 @@ Improved readability.
 
 ???
 
-### <a name="Rt-nongeneric"></a>T.143: Don't write unintentionally nongeneric code
+### <span id="Rt-nongeneric"></span>T.143: Don't write unintentionally nongeneric code
 
 ##### Reason
 
@@ -2081,7 +2081,7 @@ Use the least-derived class that has the functionality you need.
 * Flag `x.size() == 0` when `x.empty()` or `x.is_empty()` is available. Emptiness works for more containers than size(), because some containers don't know their size or are conceptually of unbounded size.
 * Flag functions that take a pointer or reference to a more-derived type but only use functions declared in a base type.
 
-### <a name="Rt-specialize-function"></a>T.144: Don't specialize function templates
+### <span id="Rt-specialize-function"></span>T.144: Don't specialize function templates
 
 ##### Reason
 
@@ -2098,7 +2098,7 @@ You can't partially specialize a function template per language rules. You can f
 * Flag all specializations of a function template. Overload instead.
 
 
-### <a name="Rt-check-class"></a>T.150: Check that a class matches a concept using `static_assert`
+### <span id="Rt-check-class"></span>T.150: Check that a class matches a concept using `static_assert`
 
 ##### Reason
 

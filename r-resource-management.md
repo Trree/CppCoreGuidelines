@@ -1,5 +1,5 @@
 
-# <a name="S-resource"></a>R: Resource management
+# <span id="S-resource"></span>R: Resource management
 
 This section contains rules related to resources.
 A resource is anything that must be acquired and (explicitly or implicitly) released, such as memory, file handles, sockets, and locks.
@@ -30,7 +30,7 @@ Here, we ignore such cases.
   * [R.14: ??? array vs. pointer parameter](#Rr-ap)
   * [R.15: Always overload matched allocation/deallocation pairs](#Rr-pair)
 
-* <a name="Rr-summary-smartptrs"></a>Smart pointer rule summary:
+* <span id="Rr-summary-smartptrs"></span>Smart pointer rule summary:
 
   * [R.20: Use `unique_ptr` or `shared_ptr` to represent ownership](#Rr-owner)
   * [R.21: Prefer `unique_ptr` over `shared_ptr` unless you need to share ownership](#Rr-unique)
@@ -46,7 +46,7 @@ Here, we ignore such cases.
   * [R.36: Take a `const shared_ptr<widget>&` parameter to express that it might retain a reference count to the object ???](#Rr-sharedptrparam-const)
   * [R.37: Do not pass a pointer or reference obtained from an aliased smart pointer](#Rr-smartptrget)
 
-### <a name="Rr-raii"></a>R.1: Manage resources automatically using resource handles and RAII (Resource Acquisition Is Initialization)
+### <span id="Rr-raii"></span>R.1: Manage resources automatically using resource handles and RAII (Resource Acquisition Is Initialization)
 
 ##### Reason
 
@@ -108,7 +108,7 @@ Where a resource is "ill-behaved" in that it isn't represented as a class with a
 
 **See also**: [RAII](#Rr-raii).
 
-### <a name="Rr-use-ptr"></a>R.2: In interfaces, use raw pointers to denote individual objects (only)
+### <span id="Rr-use-ptr"></span>R.2: In interfaces, use raw pointers to denote individual objects (only)
 
 ##### Reason
 
@@ -150,7 +150,7 @@ However, where `nullptr` is a possible value, a reference may not be an reasonab
   This rule would generate a huge number of false positives if applied to an older code base.
 * Flag array names passed as simple pointers
 
-### <a name="Rr-ptr"></a>R.3: A raw pointer (a `T*`) is non-owning
+### <span id="Rr-ptr"></span>R.3: A raw pointer (a `T*`) is non-owning
 
 ##### Reason
 
@@ -255,7 +255,7 @@ If pointer semantics are required (e.g., because the return type needs to refer 
 * (Simple) Warn if a function returns an object that was allocated within the function but has a move constructor.
   Suggest considering returning it by value instead.
 
-### <a name="Rr-ref"></a>R.4: A raw reference (a `T&`) is non-owning
+### <span id="Rr-ref"></span>R.4: A raw reference (a `T&`) is non-owning
 
 ##### Reason
 
@@ -277,7 +277,7 @@ We want owners identified so that we can reliably and efficiently delete the obj
 
 See [the raw pointer rule](#Rr-ptr)
 
-### <a name="Rr-scoped"></a>R.5: Prefer scoped objects, don't heap-allocate unnecessarily
+### <span id="Rr-scoped"></span>R.5: Prefer scoped objects, don't heap-allocate unnecessarily
 
 ##### Reason
 
@@ -309,7 +309,7 @@ Instead, use a local variable:
 * (Moderate) Warn if an object is allocated and then deallocated on all paths within a function. Suggest it should be a local `auto` stack object instead.
 * (Simple) Warn if a local `Unique_ptr` or `Shared_ptr` is not moved, copied, reassigned or `reset` before its lifetime ends.
 
-### <a name="Rr-global"></a>R.6: Avoid non-`const` global variables
+### <span id="Rr-global"></span>R.6: Avoid non-`const` global variables
 
 ##### Reason
 
@@ -332,9 +332,9 @@ An immutable (`const`) global does not introduce the problems we try to avoid by
 
 (??? NM: Obviously we can warn about non-`const` statics ... do we want to?)
 
-## <a name="SS-alloc"></a>R.alloc: Allocation and deallocation
+## <span id="SS-alloc"></span>R.alloc: Allocation and deallocation
 
-### <a name="Rr-mallocfree"></a>R.10: Avoid `malloc()` and `free()`
+### <span id="Rr-mallocfree"></span>R.10: Avoid `malloc()` and `free()`
 
 ##### Reason
 
@@ -381,7 +381,7 @@ In such cases, consider the `nothrow` versions of `new`.
 
 Flag explicit use of `malloc` and `free`.
 
-### <a name="Rr-newdelete"></a>R.11: Avoid calling `new` and `delete` explicitly
+### <span id="Rr-newdelete"></span>R.11: Avoid calling `new` and `delete` explicitly
 
 ##### Reason
 
@@ -399,7 +399,7 @@ If you have a naked `new`, you probably need a naked `delete` somewhere, so you 
 
 (Simple) Warn on any explicit use of `new` and `delete`. Suggest using `make_unique` instead.
 
-### <a name="Rr-immediate-alloc"></a>R.12: Immediately give the result of an explicit resource allocation to a manager object
+### <span id="Rr-immediate-alloc"></span>R.12: Immediately give the result of an explicit resource allocation to a manager object
 
 ##### Reason
 
@@ -432,7 +432,7 @@ The use of the file handle (in `ifstream`) is simple, efficient, and safe.
 
 * Flag explicit allocations used to initialize pointers (problem: how many direct resource allocations can we recognize?)
 
-### <a name="Rr-single-alloc"></a>R.13: Perform at most one explicit resource allocation in a single expression statement
+### <span id="Rr-single-alloc"></span>R.13: Perform at most one explicit resource allocation in a single expression statement
 
 ##### Reason
 
@@ -468,7 +468,7 @@ Write your own factory wrapper if there is not one already.
 
 * Flag expressions with multiple explicit resource allocations (problem: how many direct resource allocations can we recognize?)
 
-### <a name="Rr-ap"></a>R.14: ??? array vs. pointer parameter
+### <span id="Rr-ap"></span>R.14: ??? array vs. pointer parameter
 
 ##### Reason
 
@@ -484,7 +484,7 @@ An array decays to a pointer, thereby losing its size, opening the opportunity f
 
 Flag `[]` parameters.
 
-### <a name="Rr-pair"></a>R.15: Always overload matched allocation/deallocation pairs
+### <span id="Rr-pair"></span>R.15: Always overload matched allocation/deallocation pairs
 
 ##### Reason
 
@@ -508,9 +508,9 @@ Don't leave it undeclared.
 
 Flag incomplete pairs.
 
-## <a name="SS-smart"></a>R.smart: Smart pointers
+## <span id="SS-smart"></span>R.smart: Smart pointers
 
-### <a name="Rr-owner"></a>R.20: Use `unique_ptr` or `shared_ptr` to represent ownership
+### <span id="Rr-owner"></span>R.20: Use `unique_ptr` or `shared_ptr` to represent ownership
 
 ##### Reason
 
@@ -534,7 +534,7 @@ This will leak the object used to initialize `p1` (only).
 
 (Simple) Warn if the return value of `new` or a function call with return value of pointer type is assigned to a raw pointer.
 
-### <a name="Rr-unique"></a>R.21: Prefer `unique_ptr` over `shared_ptr` unless you need to share ownership
+### <span id="Rr-unique"></span>R.21: Prefer `unique_ptr` over `shared_ptr` unless you need to share ownership
 
 ##### Reason
 
@@ -564,7 +564,7 @@ This is more efficient:
 
 (Simple) Warn if a function uses a `Shared_ptr` with an object allocated within the function, but never returns the `Shared_ptr` or passes it to a function requiring a `Shared_ptr&`. Suggest using `unique_ptr` instead.
 
-### <a name="Rr-make_shared"></a>R.22: Use `make_shared()` to make `shared_ptr`s
+### <span id="Rr-make_shared"></span>R.22: Use `make_shared()` to make `shared_ptr`s
 
 ##### Reason
 
@@ -583,7 +583,7 @@ The `make_shared()` version mentions `X` only once, so it is usually shorter (as
 
 (Simple) Warn if a `shared_ptr` is constructed from the result of `new` rather than `make_shared`.
 
-### <a name="Rr-make_unique"></a>R.23: Use `make_unique()` to make `unique_ptr`s
+### <span id="Rr-make_unique"></span>R.23: Use `make_unique()` to make `unique_ptr`s
 
 ##### Reason
 
@@ -597,7 +597,7 @@ For convenience and consistency with `shared_ptr`.
 
 (Simple) Warn if a `unique_ptr` is constructed from the result of `new` rather than `make_unique`.
 
-### <a name="Rr-weak_ptr"></a>R.24: Use `std::weak_ptr` to break cycles of `shared_ptr`s
+### <span id="Rr-weak_ptr"></span>R.24: Use `std::weak_ptr` to break cycles of `shared_ptr`s
 
 ##### Reason
 
@@ -618,7 +618,7 @@ You could "temporarily share ownership" simply by using another `shared_ptr`.)
 
 ??? probably impossible. If we could statically detect cycles, we wouldn't need `weak_ptr`
 
-### <a name="Rr-smartptrparam"></a>R.30: Take smart pointers as parameters only to explicitly express lifetime semantics
+### <span id="Rr-smartptrparam"></span>R.30: Take smart pointers as parameters only to explicitly express lifetime semantics
 
 ##### Reason
 
@@ -667,7 +667,7 @@ A function that does not manipulate lifetime should take raw pointers or referen
 * Flag a parameter of a smart pointer type (a type that overloads `operator->` or `operator*`) that is copyable/movable but never copied/moved from in the function body, and that is never modified, and that is not passed along to another function that could do so. That means the ownership semantics are not used.
   Suggest using a `T*` or `T&` instead.
 
-### <a name="Rr-smart"></a>R.31: If you have non-`std` smart pointers, follow the basic pattern from `std`
+### <span id="Rr-smart"></span>R.31: If you have non-`std` smart pointers, follow the basic pattern from `std`
 
 ##### Reason
 
@@ -700,7 +700,7 @@ Both cases are an error under the [`sharedptrparam` guideline](#Rr-smartptrparam
 these functions should accept a smart pointer only if they need to participate in the widget's lifetime management. Otherwise they should accept a `widget*`, if it can be `nullptr`. Otherwise, and ideally, the function should accept a `widget&`.
 These smart pointers match the `Shared_ptr` concept, so these guideline enforcement rules work on them out of the box and expose this common pessimization.
 
-### <a name="Rr-uniqueptrparam"></a>R.32: Take a `unique_ptr<widget>` parameter to express that a function assumes ownership of a `widget`
+### <span id="Rr-uniqueptrparam"></span>R.32: Take a `unique_ptr<widget>` parameter to express that a function assumes ownership of a `widget`
 
 ##### Reason
 
@@ -721,7 +721,7 @@ Using `unique_ptr` in this way both documents and enforces the function call's o
 * (Simple) Warn if a function takes a `Unique_ptr<T>` parameter by lvalue reference and does not either assign to it or call `reset()` on it on at least one code path. Suggest taking a `T*` or `T&` instead.
 * (Simple) ((Foundation)) Warn if a function takes a `Unique_ptr<T>` parameter by reference to `const`. Suggest taking a `const T*` or `const T&` instead.
 
-### <a name="Rr-reseat"></a>R.33: Take a `unique_ptr<widget>&` parameter to express that a function reseats the`widget`
+### <span id="Rr-reseat"></span>R.33: Take a `unique_ptr<widget>&` parameter to express that a function reseats the`widget`
 
 ##### Reason
 
@@ -744,7 +744,7 @@ Using `unique_ptr` in this way both documents and enforces the function call's r
 * (Simple) Warn if a function takes a `Unique_ptr<T>` parameter by lvalue reference and does not either assign to it or call `reset()` on it on at least one code path. Suggest taking a `T*` or `T&` instead.
 * (Simple) ((Foundation)) Warn if a function takes a `Unique_ptr<T>` parameter by reference to `const`. Suggest taking a `const T*` or `const T&` instead.
 
-### <a name="Rr-sharedptrparam-owner"></a>R.34: Take a `shared_ptr<widget>` parameter to express that a function is part owner
+### <span id="Rr-sharedptrparam-owner"></span>R.34: Take a `shared_ptr<widget>` parameter to express that a function is part owner
 
 ##### Reason
 
@@ -764,7 +764,7 @@ This makes the function's ownership sharing explicit.
 * (Simple) ((Foundation)) Warn if a function takes a `Shared_ptr<T>` by value or by reference to `const` and does not copy or move it to another `Shared_ptr` on at least one code path. Suggest taking a `T*` or `T&` instead.
 * (Simple) ((Foundation)) Warn if a function takes a `Shared_ptr<T>` by rvalue reference. Suggesting taking it by value instead.
 
-### <a name="Rr-sharedptrparam"></a>R.35: Take a `shared_ptr<widget>&` parameter to express that a function might reseat the shared pointer
+### <span id="Rr-sharedptrparam"></span>R.35: Take a `shared_ptr<widget>&` parameter to express that a function might reseat the shared pointer
 
 ##### Reason
 
@@ -788,7 +788,7 @@ This makes the function's reseating explicit.
 * (Simple) ((Foundation)) Warn if a function takes a `Shared_ptr<T>` by value or by reference to `const` and does not copy or move it to another `Shared_ptr` on at least one code path. Suggest taking a `T*` or `T&` instead.
 * (Simple) ((Foundation)) Warn if a function takes a `Shared_ptr<T>` by rvalue reference. Suggesting taking it by value instead.
 
-### <a name="Rr-sharedptrparam-const"></a>R.36: Take a `const shared_ptr<widget>&` parameter to express that it might retain a reference count to the object ???
+### <span id="Rr-sharedptrparam-const"></span>R.36: Take a `const shared_ptr<widget>&` parameter to express that it might retain a reference count to the object ???
 
 ##### Reason
 
@@ -808,7 +808,7 @@ This makes the function's ??? explicit.
 * (Simple) ((Foundation)) Warn if a function takes a `Shared_ptr<T>` by value or by reference to `const` and does not copy or move it to another `Shared_ptr` on at least one code path. Suggest taking a `T*` or `T&` instead.
 * (Simple) ((Foundation)) Warn if a function takes a `Shared_ptr<T>` by rvalue reference. Suggesting taking it by value instead.
 
-### <a name="Rr-smartptrget"></a>R.37: Do not pass a pointer or reference obtained from an aliased smart pointer
+### <span id="Rr-smartptrget"></span>R.37: Do not pass a pointer or reference obtained from an aliased smart pointer
 
 ##### Reason
 

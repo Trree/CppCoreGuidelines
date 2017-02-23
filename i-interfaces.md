@@ -1,5 +1,5 @@
 
-# <a name="S-interfaces"></a>I: Interfaces
+# <span id="S-interfaces"></span>I: Interfaces
 
 An interface is a contract between two parts of a program. Precisely stating what is expected of a supplier of a service and a user of that service is essential.
 Having good (easy-to-understand, encouraging efficient use, not error-prone, supporting testing, etc.) interfaces is probably the most important single aspect of code organization.
@@ -35,7 +35,7 @@ See also
 * [E: Error handling](#S-errors)
 * [T: Templates and generic programming](#S-templates)
 
-### <a name="Ri-explicit"></a>I.1: Make interfaces explicit
+### <span id="Ri-explicit"></span>I.1: Make interfaces explicit
 
 ##### Reason
 
@@ -79,7 +79,7 @@ Functions can be template functions and sets of functions can be classes or clas
 * (Simple) A function should not make control-flow decisions based on the values of variables declared at namespace scope.
 * (Simple) A function should not write to variables declared at namespace scope.
 
-### <a name="Ri-global"></a>I.2 Avoid global variables
+### <span id="Ri-global"></span>I.2 Avoid global variables
 
 ##### Reason
 
@@ -127,7 +127,7 @@ You cannot have a race condition on immutable data.
 
 (Simple) Report all non-`const` variables declared at namespace scope.
 
-### <a name="Ri-singleton"></a>I.3: Avoid singletons
+### <span id="Ri-singleton"></span>I.3: Avoid singletons
 
 ##### Reason
 
@@ -188,7 +188,7 @@ Very hard in general.
 * Look for classes for which only a single object is created (by counting objects or by examining constructors).
 * If a class X has a public static function that contains a function-local static of the class' type X and returns a pointer or reference to it, ban that.
 
-### <a name="Ri-typed"></a>I.4: Make interfaces precisely and strongly typed
+### <span id="Ri-typed"></span>I.4: Make interfaces precisely and strongly typed
 
 ##### Reason
 
@@ -284,7 +284,7 @@ The function can also be written in such a way that it will accept any time dura
 * (Simple) Report the use of `void*` as a parameter or return type.
 * (Hard to do well) Look for member functions with many built-in type arguments.
 
-### <a name="Ri-pre"></a>I.5: State preconditions (if any)
+### <span id="Ri-pre"></span>I.5: State preconditions (if any)
 
 ##### Reason
 
@@ -325,7 +325,7 @@ We don't need to mention it for each member function.
 
 **See also**: The rules for passing pointers. ???
 
-### <a name="Ri-expects"></a>I.6: Prefer `Expects()` for expressing preconditions
+### <span id="Ri-expects"></span>I.6: Prefer `Expects()` for expressing preconditions
 
 ##### Reason
 
@@ -359,7 +359,7 @@ Once language support becomes available (e.g., see the [contract proposal](http:
 
 (Not enforceable) Finding the variety of ways preconditions can be asserted is not feasible. Warning about those that can be easily identified (`assert()`) has questionable value in the absence of a language facility.
 
-### <a name="Ri-post"></a>I.7: State postconditions
+### <span id="Ri-post"></span>I.7: State postconditions
 
 ##### Reason
 
@@ -455,7 +455,7 @@ Postconditions related only to internal state belongs in the definition/implemen
 directly in the general case. Domain specific checkers (like lock-holding
 checkers) exist for many toolchains.
 
-### <a name="Ri-ensures"></a>I.8: Prefer `Ensures()` for expressing postconditions
+### <span id="Ri-ensures"></span>I.8: Prefer `Ensures()` for expressing postconditions
 
 ##### Reason
 
@@ -488,7 +488,7 @@ Once language support becomes available (e.g., see the [contract proposal](http:
 
 (Not enforceable) Finding the variety of ways postconditions can be asserted is not feasible. Warning about those that can be easily identified (`assert()`) has questionable value in the absence of a language facility.
 
-### <a name="Ri-concepts"></a>I.9: If an interface is a template, document its parameters using concepts
+### <span id="Ri-concepts"></span>I.9: If an interface is a template, document its parameters using concepts
 
 ##### Reason
 
@@ -516,7 +516,7 @@ For now, the concept TS is supported only in GCC 6.1.
 
 (Not yet enforceable) A language facility is under specification. When the language facility is available, warn if any non-variadic template parameter is not constrained by a concept (in its declaration or mentioned in a `requires` clause).
 
-### <a name="Ri-except"></a>I.10: Use exceptions to signal a failure to perform a required task
+### <span id="Ri-except"></span>I.10: Use exceptions to signal a failure to perform a required task
 
 ##### Reason
 
@@ -583,7 +583,7 @@ We don't consider "performance" a valid reason not to use exceptions.
 * (Not enforceable) This is a philosophical guideline that is infeasible to check directly.
 * Look for `errno`.
 
-### <a name="Ri-raw"></a>I.11: Never transfer ownership by a raw pointer (`T*`)
+### <span id="Ri-raw"></span>I.11: Never transfer ownership by a raw pointer (`T*`)
 
 ##### Reason
 
@@ -643,7 +643,7 @@ so the default is "no ownership transfer."
 * (Simple) Warn on failure to either `reset` or explicitly `delete` an `owner` pointer on every code path.
 * (Simple) Warn if the return value of `new` or a function call with an `owner` return value is assigned to a raw pointer or non-`owner` reference.
 
-### <a name="Ri-nullptr"></a>I.12: Declare a pointer that must not be null as `not_null`
+### <span id="Ri-nullptr"></span>I.12: Declare a pointer that must not be null as `not_null`
 
 ##### Reason
 
@@ -681,7 +681,7 @@ Note: `length()` is, of course, `std::strlen()` in disguise.
 * (Simple) ((Foundation)) If a function checks a pointer parameter against `nullptr` before access, on all control-flow paths, then warn it should be declared `not_null`.
 * (Complex) If a function with pointer return value ensures it is not `nullptr` on all return paths, then warn the return type should be declared `not_null`.
 
-### <a name="Ri-array"></a>I.13: Do not pass an array as a single pointer
+### <span id="Ri-array"></span>I.13: Do not pass an array as a single pointer
 
 ##### Reason
 
@@ -737,7 +737,7 @@ But when doing so, use `string_span` from the [GSL](#GSL) to prevent range error
 * (Simple) ((Bounds)) Warn for any expression that would rely on implicit conversion of an array type to a pointer type. Allow exception for zstring/czstring pointer types.
 * (Simple) ((Bounds)) Warn for any arithmetic operation on an expression of pointer type that results in a value of pointer type. Allow exception for zstring/czstring pointer types.
 
-### <a name="Ri-global-init"></a>I.22: Avoid complex initialization of global objects
+### <span id="Ri-global-init"></span>I.22: Avoid complex initialization of global objects
 
 ##### Reason
 
@@ -771,7 +771,7 @@ It is usually best to avoid global (namespace scope) objects altogether.
 * Flag initializers of globals that call non-`constexpr` functions
 * Flag initializers of globals that access `extern` objects
 
-### <a name="Ri-nargs"></a>I.23: Keep the number of function arguments low
+### <span id="Ri-nargs"></span>I.23: Keep the number of function arguments low
 
 ##### Reason
 
@@ -847,7 +847,7 @@ There are functions that are best expressed with four individual parameters, but
 * Warn when a function declares two iterators (including pointers) of the same type instead of a range or a view.
 * (Not enforceable) This is a philosophical guideline that is infeasible to check directly.
 
-### <a name="Ri-unrelated"></a>I.24: Avoid adjacent unrelated parameters of the same type
+### <span id="Ri-unrelated"></span>I.24: Avoid adjacent unrelated parameters of the same type
 
 ##### Reason
 
@@ -895,7 +895,7 @@ are often filled in by name at the call site.
 
 (Simple) Warn if two consecutive parameters share the same type.
 
-### <a name="Ri-abstract"></a>I.25: Prefer abstract classes as interfaces to class hierarchies
+### <span id="Ri-abstract"></span>I.25: Prefer abstract classes as interfaces to class hierarchies
 
 ##### Reason
 
@@ -932,7 +932,7 @@ This will force every derived class to compute a center -- even if that's non-tr
 
 (Simple) Warn if a pointer/reference to a class `C` is assigned to a pointer/reference to a base of `C` and the base class contains data members.
 
-### <a name="Ri-abi"></a>I.26: If you want a cross-compiler ABI, use a C-style subset
+### <span id="Ri-abi"></span>I.26: If you want a cross-compiler ABI, use a C-style subset
 
 ##### Reason
 

@@ -1,5 +1,5 @@
 
-# <a name="S-errors"></a>E: Error handling
+# <span id="S-errors"></span>E: Error handling
 
 Error handling involves:
 
@@ -44,13 +44,13 @@ Error-handling rule summary:
 * [E.27: If you can't throw exceptions, use error codes systematically](#Re-no-throw-codes)
 * [E.28: Avoid error handling based on global state (e.g. `errno`)](#Re-no-throw)
 
-### <a name="Re-design"></a>E.1: Develop an error-handling strategy early in a design
+### <span id="Re-design"></span>E.1: Develop an error-handling strategy early in a design
 
 ##### Reason
 
 A consistent and complete strategy for handling errors and resource leaks is hard to retrofit into a system.
 
-### <a name="Re-throw"></a>E.2: Throw an exception to signal that a function can't perform its assigned task
+### <span id="Re-throw"></span>E.2: Throw an exception to signal that a function can't perform its assigned task
 
 ##### Reason
 
@@ -117,7 +117,7 @@ Before deciding that you cannot afford or don't like exception-based error handl
 they have their own complexities and problems.
 Also, as far as possible, measure before making claims about efficiency.
 
-### <a name="Re-errors"></a>E.3: Use exceptions for error handling only
+### <span id="Re-errors"></span>E.3: Use exceptions for error handling only
 
 ##### Reason
 
@@ -146,7 +146,7 @@ There is nothing exceptional about finding a value in a `vector`.
 Would need to be heuristic.
 Look for exception values "leaked" out of `catch` clauses.
 
-### <a name="Re-design-invariants"></a>E.4: Design your error-handling strategy around invariants
+### <span id="Re-design-invariants"></span>E.4: Design your error-handling strategy around invariants
 
 ##### Reason
 
@@ -160,7 +160,7 @@ An [invariant](#Rc-struct) is logical condition for the members of an object tha
 
 ???
 
-### <a name="Re-invariant"></a>E.5: Let a constructor establish an invariant, and throw if it cannot
+### <span id="Re-invariant"></span>E.5: Let a constructor establish an invariant, and throw if it cannot
 
 ##### Reason
 
@@ -192,7 +192,7 @@ The operators, notably the subscript operator, relies on the invariant.
 
 Flag classes with `private` state without a constructor (public, protected, or private).
 
-### <a name="Re-raii"></a>E.6: Use RAII to prevent leaks
+### <span id="Re-raii"></span>E.6: Use RAII to prevent leaks
 
 ##### Reason
 
@@ -299,7 +299,7 @@ Prefer to use exceptions.
 
 ???
 
-### <a name="Re-precondition"></a>E.7: State your preconditions
+### <span id="Re-precondition"></span>E.7: State your preconditions
 
 ##### Reason
 
@@ -307,7 +307,7 @@ To avoid interface errors.
 
 **See also**: [precondition rule](#Ri-pre).
 
-### <a name="Re-postcondition"></a>E.8: State your postconditions
+### <span id="Re-postcondition"></span>E.8: State your postconditions
 
 ##### Reason
 
@@ -315,7 +315,7 @@ To avoid interface errors.
 
 **See also**: [postcondition rule](#Ri-post).
 
-### <a name="Re-noexcept"></a>E.12: Use `noexcept` when exiting a function because of a `throw` is impossible or unacceptable
+### <span id="Re-noexcept"></span>E.12: Use `noexcept` when exiting a function because of a `throw` is impossible or unacceptable
 
 ##### Reason
 
@@ -347,7 +347,7 @@ The `noexcept` here states that I am not willing or able to handle the situation
 
 **See also**: [discussion](#Sd-noexcept).
 
-### <a name="Re-never-throw"></a>E.13: Never throw while being the direct owner of an object
+### <span id="Re-never-throw"></span>E.13: Never throw while being the direct owner of an object
 
 ##### Reason
 
@@ -383,7 +383,7 @@ Another solution (often better) would be to use a local variable to eliminate ex
 
 **See also**: ???resource rule ???
 
-### <a name="Re-exception-types"></a>E.14: Use purpose-designed user-defined types as exceptions (not built-in types)
+### <span id="Re-exception-types"></span>E.14: Use purpose-designed user-defined types as exceptions (not built-in types)
 
 ##### Reason
 
@@ -462,7 +462,7 @@ The standard-library classes derived from `exception` should be used only as bas
 
 Catch `throw` and `catch` of a built-in type. Maybe warn about `throw` and `catch` using an standard-library `exception` type. Obviously, exceptions derived from the `std::exception` hierarchy is fine.
 
-### <a name="Re-exception-ref"></a>E.15: Catch exceptions from a hierarchy by reference
+### <span id="Re-exception-ref"></span>E.15: Catch exceptions from a hierarchy by reference
 
 ##### Reason
 
@@ -486,7 +486,7 @@ Instead, use:
 
 Flag by-value exceptions if their types are part of a hierarchy (could require whole-program analysis to be perfect).
 
-### <a name="Re-never-fail"></a>E.16: Destructors, deallocation, and `swap` must never fail
+### <span id="Re-never-fail"></span>E.16: Destructors, deallocation, and `swap` must never fail
 
 ##### Reason
 
@@ -530,7 +530,7 @@ Catch such operations that are not `noexcept`.
 
 **See also**: [discussion](#Sd-never-fail)
 
-### <a name="Re-not-always"></a>E.17: Don't try to catch every exception in every function
+### <span id="Re-not-always"></span>E.17: Don't try to catch every exception in every function
 
 ##### Reason
 
@@ -556,7 +556,7 @@ Let cleanup actions on the unwinding path be handled by [RAII](#Re-raii).
 * Flag nested try-blocks.
 * Flag source code files with a too high ratio of try-blocks to functions. (??? Problem: define "too high")
 
-### <a name="Re-catch"></a>E.18: Minimize the use of explicit `try`/`catch`
+### <span id="Re-catch"></span>E.18: Minimize the use of explicit `try`/`catch`
 
 ##### Reason
 
@@ -599,7 +599,7 @@ Better:
 
 ??? hard, needs a heuristic
 
-### <a name="Re-finally"></a>E.19: Use a `final_action` object to express cleanup if no suitable resource handle is available
+### <span id="Re-finally"></span>E.19: Use a `final_action` object to express cleanup if no suitable resource handle is available
 
 ##### Reason
 
@@ -628,7 +628,7 @@ for dealing with cleanup where resource management is not systematic.
 
 Heuristic: Detect `goto exit;`
 
-### <a name="Re-no-throw-raii"></a>E.25: If you can't throw exceptions, simulate RAII for resource management
+### <span id="Re-no-throw-raii"></span>E.25: If you can't throw exceptions, simulate RAII for resource management
 
 ##### Reason
 
@@ -689,7 +689,7 @@ The problem is of course that the caller now has to remember to test the return 
 
 Possible (only) for specific versions of this idea: e.g., test for systematic test of `valid()` after resource handle construction
 
-### <a name="Re-no-throw-crash"></a>E.26: If you can't throw exceptions, consider failing fast
+### <span id="Re-no-throw-crash"></span>E.26: If you can't throw exceptions, consider failing fast
 
 ##### Reason
 
@@ -732,7 +732,7 @@ Typically, it is a good idea to log the reason for the "crash" before exiting.
 
 Awkward
 
-### <a name="Re-no-throw-codes"></a>E.27: If you can't throw exceptions, use error codes systematically
+### <span id="Re-no-throw-codes"></span>E.27: If you can't throw exceptions, use error codes systematically
 
 ##### Reason
 
@@ -890,7 +890,7 @@ We [prefer exception-based error handling](#Re-throw) and recommend [keeping fun
 
 Awkward.
 
-### <a name="Re-no-throw"></a>E.28: Avoid error handling based on global state (e.g. `errno`)
+### <span id="Re-no-throw"></span>E.28: Avoid error handling based on global state (e.g. `errno`)
 
 ##### Reason
 

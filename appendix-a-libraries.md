@@ -1,4 +1,4 @@
-# Appendix A: Libraries {#appendix-a-libraries}
+# Appendix A: Libraries
 
 This section lists recommended libraries, and explicitly recommends a few.
 
