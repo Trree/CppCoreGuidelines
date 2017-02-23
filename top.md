@@ -23,8 +23,8 @@ You can[read an explanation of the scope and structure of this Guide](http://iso
 
 * [In: Introduction](https://trree.gitbooks.io/cppcoreguidelines/content/in-introduction.html)
 * [P: Philosophy](https://trree.gitbooks.io/cppcoreguidelines/content/p-philosophy.html)
-* [I: Interfaces](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-interfaces)
-* [F: Functions](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-functions)
+* [I: Interfaces](https://trree.gitbooks.io/cppcoreguidelines/content/i-interfaces.html)
+* [F: Functions](https://trree.gitbooks.io/cppcoreguidelines/content/f-functions.html)
 * [C: Classes and class hierarchies](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-class)
 * [Enum: Enumerations](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-enum)
 * [R: Resource management](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-resource)
