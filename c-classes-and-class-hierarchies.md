@@ -1,4 +1,3 @@
-
 # <a name="S-class"></a>C: Classes and Class Hierarchies
 
 A class is a user-defined type, for which a programmer can define the representation, operations, and interfaces.
