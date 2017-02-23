@@ -1,4 +1,3 @@
-
 # <span id="S-resource"></span>R: Resource management
 
 This section contains rules related to resources.

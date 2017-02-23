@@ -1,4 +1,3 @@
-
 # <span id="S-templates"></span>T: Templates and generic programming
 
 Generic programming is programming using types and algorithms parameterized by types, values, and algorithms.

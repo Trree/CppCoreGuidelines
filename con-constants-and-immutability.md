@@ -1,4 +1,3 @@
-
 # <span id="S-const"></span>Con: Constants and Immutability
 
 You can't have a race condition on a constant.

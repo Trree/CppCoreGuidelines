@@ -1,4 +1,3 @@
-
 # <span id="S-errors"></span>E: Error handling
 
 Error handling involves:
