@@ -21,8 +21,8 @@ Problems:
 
 You can[read an explanation of the scope and structure of this Guide](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-abstract)or just jump straight in:
 
-* [In: Introduction](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-introduction)
-* [P: Philosophy](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-philosophy)
+* [In: Introduction](https://trree.gitbooks.io/cppcoreguidelines/content/in-introduction.html)
+* [P: Philosophy](https://trree.gitbooks.io/cppcoreguidelines/content/p-philosophy.html)
 * [I: Interfaces](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-interfaces)
 * [F: Functions](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-functions)
 * [C: Classes and class hierarchies](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-class)
