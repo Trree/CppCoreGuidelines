@@ -293,7 +293,7 @@ Prefer the order `public` members before `protected` members before `private` me
 
 Flag protected data.
 
-## <a name="SS-concrete"></a>C.concrete: Concrete types
+## <span id="SS-concrete"></span>C.concrete: Concrete types
 
 One ideal for a class is to be a regular type.
 That means roughly "behaves like an `int`." A concrete type is the simplest kind of class.
