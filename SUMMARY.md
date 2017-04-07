@@ -4,8 +4,8 @@
 * [top](chapter1.md)
 * [In: Introduction](in-introduction.md)
 * [P: Philosophy](p-philosophy.md)
-* I: Interfaces
-* F: Functions
+* [I: Interfaces](i-interfaces.md)
+* [F: Functions](f-functions.md)
 * C: Classes and Class Hierarchies
 * Enum: Enumerations
 * R: Resource management
