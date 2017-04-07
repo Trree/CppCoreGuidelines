@@ -7,7 +7,7 @@
 * [I: Interfaces](i-interfaces.md)
 * [F: Functions](f-functions.md)
 * [C: Classes and Class Hierarchies](c-classes-and-class-hierarchies.md)
-* Enum: Enumerations
+* [Enum: Enumerations](enum-enumerations.md)
 * R: Resource management
 * ES: Expressions and Statements
 * E: Error handling
