@@ -95,7 +95,6 @@ void read_and_print(istream
 <
  "no int on input\n";
 }
-
 ```
 
 Almost everything is wrong with`read_and_print`. It reads, it writes \(to a fixed`ostream`\), it writes error messages \(to a fixed`ostream`\), it handles only`int`s. There is nothing to reuse, logically separate operations are intermingled and local variables are in scope after the end of their logical use. For a tiny example, this looks OK, but if the input operation, the output operation, and the error handling had been more complicated the tangled mess could become hard to understand.
@@ -115,7 +114,6 @@ sort(a, b, [](T x, T y) { return x.rank()
  x.value() 
 <
  y.value(); });
-
 ```
 
 Naming that lambda breaks up the expression into its logical parts and provides a strong hint to the meaning of the lambda.
@@ -132,7 +130,6 @@ auto lessT = [](T x, T y) { return x.rank()
 
 sort(a, b, lessT);
 find_if(a, b, lessT);
-
 ```
 
 The shortest code is not always the best for performance or maintainability.
@@ -174,7 +171,6 @@ void read_and_print()    // bad
 <
  "\n";
 }
-
 ```
 
 This is a monolith that is tied to a specific input and will never find another \(different\) use. Instead, break functions up into suitable logical parts and parameterize:
@@ -205,7 +201,6 @@ void print(ostream
 <
  "\n";
 }
-
 ```
 
 These can now be combined where needed:
@@ -216,7 +211,6 @@ void read_and_print()
     auto x = read(cin);
     print(cout, x);
 }
-
 ```
 
 If there was a need, we could further templatize`read()`and`print()`on the data type, the I/O mechanism, the response to errors, etc. Example:
@@ -249,7 +243,6 @@ auto print(auto
 <
  "\n";
 }
-
 ```
 
 ##### Enforcement {#enforcement-29}
@@ -302,7 +295,6 @@ double simpleFunc(double val, int flag1, int flag2)
     }
     return finalize(intermediate, 0.);
 }
-
 ```
 
 This is too complex \(and long\). How would you know if all possible alternatives have been correctly handled? Yes, it breaks other rules also.
@@ -333,7 +325,6 @@ double simpleFunc(double val, int flag1, int flag2)
         return func1_tau(-val, flag1, flag2);
     return 0.;
 }
-
 ```
 
 ##### Note {#note-40}
@@ -377,7 +368,6 @@ constexpr int fac(int n)
 = n; ++i) x *= i;
     return x;
 }
-
 ```
 
 This is C++14. For C++11, use a recursive formulation of`fac()`.
@@ -398,7 +388,6 @@ void test(int v)
     int m3 = min(-1, v);            // run-time evaluation
     constexpr int m4 = min(-1, v);  // error: cannot evaluate at compile-time
 }
-
 ```
 
 ##### Note {#note-43}
@@ -412,7 +401,6 @@ constexpr int double(int v)
     ++dcount;   // error: attempted side effect from constexpr function
     return v + v;
 }
-
 ```
 
 This is usually a very good thing.
@@ -445,7 +433,6 @@ inline string cat(const string
  s, const string
 &
  s2) { return s + s2; }
-
 ```
 
 ##### Exception {#exception-8}
@@ -507,7 +494,6 @@ string
         res.push_back(s);
     return res;
 }
-
 ```
 
 If`collect()`runs out of memory, the program crashes. Unless the program is crafted to survive memory exhaustion, that may be just the right thing to do;`terminate()`may generate suitable error log information \(but after memory runs out it is hard to do anything clever\).
@@ -535,6 +521,413 @@ Destructors,`swap`functions, move operations, and default constructors should ne
   `move`
   , destructors, and default constructors.
 
+
+
+### F.7: For general use, take`T*`or`T&`arguments rather than smart pointers {#f7-for-general-use-take-t-or-t-arguments-rather-than-smart-pointers}
+
+##### Reason {#reason-37}
+
+Passing a smart pointer transfers or shares ownership and should only be used when ownership semantics are intended \(see[R.30](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-smartptrparam)\). Passing by smart pointer restricts the use of a function to callers that use smart pointers. Passing a shared smart pointer \(e.g.,`std::shared_ptr`\) implies a run-time cost.
+
+##### Example {#example-36}
+
+```
+// accepts any int*
+void f(int*);
+
+// can only accept ints for which you want to transfer ownership
+void g(unique_ptr
+<
+int
+>
+);
+
+// can only accept ints for which you are willing to share ownership
+void g(shared_ptr
+<
+int
+>
+);
+
+// doesn't change ownership, but requires a particular ownership of the caller
+void h(const unique_ptr
+<
+int
+>
+&
+);
+
+// accepts any int
+void h(int
+&
+);
+
+```
+
+##### Example, bad {#example-bad-16}
+
+```
+// callee
+void f(shared_ptr
+<
+widget
+>
+&
+ w)
+{
+    // ...
+    use(*w); // only use of w -- the lifetime is not used at all
+    // ...
+};
+
+```
+
+See further in[R.30](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-smartptrparam).
+
+##### Note {#note-51}
+
+We can catch dangling pointers statically, so we don’t need to rely on resource management to avoid violations from dangling pointers.
+
+**See also**:[when to prefer`T*`and when to prefer`T&`](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rf-ptr-ref).
+
+**See also**: Discussion of[smart pointer use](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-summary-smartptrs).
+
+##### Enforcement {#enforcement-34}
+
+Flag a parameter of a smart pointer type \(a type that overloads`operator->`or`operator*`\) for which the ownership semantics are not used; that is
+
+* copyable but never copied/moved from or movable but never moved
+* and that is never modified or passed along to another function that could do so.
+
+### F.8: Prefer pure functions {#f8-prefer-pure-functions}
+
+##### Reason {#reason-38}
+
+Pure functions are easier to reason about, sometimes easier to optimize \(and even parallelize\), and sometimes can be memoized.
+
+##### Example {#example-37}
+
+```
+template
+<
+class T
+>
+
+auto square(T t) { return t * t; }
+
+```
+
+##### Note {#note-52}
+
+`constexpr`functions are pure.
+
+When given a non-constant argument, a`constexpr`function can throw. If you consider exiting by throwing a side-effect, a`constexpr`function isn’t completely pure; if not, this is not an issue. ??? A question for the committee: can a constructor for an exception thrown by a`constexpr`function modify state? “No” would be a nice answer that matches most practice.
+
+##### Enforcement {#enforcement-35}
+
+Not possible.
+
+### F.9: Unused parameters should be unnamed {#f9-unused-parameters-should-be-unnamed}
+
+##### Reason {#reason-39}
+
+Readability. Suppression of unused parameter warnings.
+
+##### Example {#example-38}
+
+```
+X* find(map
+<
+Blob
+>
+&
+ m, const string
+&
+ s, Hint);   // once upon a time, a hint was used
+
+```
+
+##### Note {#note-53}
+
+Allowing parameters to be unnamed was introduced in the early 1980 to address this problem.
+
+##### Enforcement {#enforcement-36}
+
+Flag named unused parameters.
+
+## F.call: Parameter passing {#fcall-parameter-passing}
+
+There are a variety of ways to pass parameters to a function and to return values.
+
+### F.15: Prefer simple and conventional ways of passing information {#f15-prefer-simple-and-conventional-ways-of-passing-information}
+
+##### Reason {#reason-40}
+
+Using “unusual and clever” techniques causes surprises, slows understanding by other programmers, and encourages bugs. If you really feel the need for an optimization beyond the common techniques, measure to ensure that it really is an improvement, and document/comment because the improvement may not be portable.
+
+The following tables summarize the advice in the following Guidelines, F.16-21.
+
+Normal parameter passing:
+
+![](http://isocpp.github.io/CppCoreGuidelines/param-passing-normal.png "Normal parameter passing table")
+
+Advanced parameter passing:
+
+![](http://isocpp.github.io/CppCoreGuidelines/param-passing-advanced.png "Advanced parameter passing table")
+
+Use the advanced techniques only after demonstrating need, and document that need in a comment.
+
+### F.16: For “in” parameters, pass cheaply-copied types by value and others by reference to`const` {#f16-for-in-parameters-pass-cheaply-copied-types-by-value-and-others-by-reference-to-const}
+
+##### Reason {#reason-41}
+
+Both let the caller know that a function will not modify the argument, and both allow initialization by rvalues.
+
+What is “cheap to copy” depends on the machine architecture, but two or three words \(doubles, pointers, references\) are usually best passed by value. When copying is cheap, nothing beats the simplicity and safety of copying, and for small objects \(up to two or three words\) it is also faster than passing by reference because it does not require an extra indirection to access from the function.
+
+##### Example {#example-39}
+
+```
+void f1(const string
+&
+ s);  // OK: pass by reference to const; always cheap
+
+void f2(string s);         // bad: potentially expensive
+
+void f3(int x);            // OK: Unbeatable
+
+void f4(const int
+&
+ x);     // bad: overhead on access in f4()
+
+```
+
+For advanced uses \(only\), where you really need to optimize for rvalues passed to “input-only” parameters:
+
+* If the function is going to unconditionally move from the argument, take it by
+  `&`
+  `&`
+  . See
+  [F.18](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rf-consume)
+  .
+* If the function is going to keep a copy of the argument, in addition to passing by
+  `const`
+  `&`
+  \(for lvalues\), add an overload that passes the parameter by
+  `&`
+  `&`
+  \(for rvalues\) and in the body
+  `std::move`
+  s it to its destination. Essentially this overloads a “consume”; see
+  [F.18](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rf-consume)
+  .
+* In special cases, such as multiple “input + copy” parameters, consider using perfect forwarding. See
+  [F.19](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rf-forward)
+  .
+
+##### Example {#example-40}
+
+```
+int multiply(int, int); // just input ints, pass by value
+
+// suffix is input-only but not as cheap as an int, pass by const
+&
+
+string
+&
+ concatenate(string
+&
+, const string
+&
+ suffix);
+
+void sink(unique_ptr
+<
+widget
+>
+);  // input only, and consumes the widget
+
+```
+
+Avoid “esoteric techniques” such as:
+
+* Passing arguments as
+  `T`
+  `&`
+  `&`
+  “for efficiency”. Most rumors about performance advantages from passing by
+  `&`
+  `&`
+  are false or brittle \(but see
+  [F.25](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rf-pass-ref-move)
+  .\)
+* Returning
+  `const T`
+  `&`
+  from assignments and similar operations \(see
+  [F.47](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rf-assignment-op)
+  .\)
+
+##### Example {#example-41}
+
+Assuming that`Matrix`has move operations \(possibly by keeping its elements in a`std::vector`\):
+
+```
+Matrix operator+(const Matrix
+&
+ a, const Matrix
+&
+ b)
+{
+    Matrix res;
+    // ... fill res with the sum ...
+    return res;
+}
+
+Matrix x = m1 + m2;  // move constructor
+
+y = m3 + m3;         // move assignment
+
+```
+
+##### Notes {#notes}
+
+The return value optimization doesn’t handle the assignment case, but the move assignment does.
+
+A reference may be assumed to refer to a valid object \(language rule\). There is no \(legitimate\) “null reference.” If you need the notion of an optional value, use a pointer,`std::optional`, or a special value used to denote “no value.”
+
+##### Enforcement {#enforcement-37}
+
+* \(Simple\) \(\(Foundation\)\) Warn when a parameter being passed by value has a size greater than
+  `4 * sizeof(int)`
+  . Suggest using a reference to
+  `const`
+  instead.
+* \(Simple\) \(\(Foundation\)\) Warn when a
+  `const`
+  parameter being passed by reference has a size less than
+  `3 * sizeof(int)`
+  . Suggest passing by value instead.
+* \(Simple\) \(\(Foundation\)\) Warn when a
+  `const`
+  parameter being passed by reference is
+  `move`
+  d.
+
+### F.17: For “in-out” parameters, pass by reference to non-`const` {#f17-for-in-out-parameters-pass-by-reference-to-non-const}
+
+##### Reason {#reason-42}
+
+This makes it clear to callers that the object is assumed to be modified.
+
+##### Example {#example-42}
+
+```
+void update(Record
+&
+ r);  // assume that update writes to r
+
+```
+
+##### Note {#note-54}
+
+A`T&`argument can pass information into a function as well as well as out of it. Thus`T&`could be an in-out-parameter. That can in itself be a problem and a source of errors:
+
+```
+void f(string
+&
+ s)
+{
+    s = "New York";  // non-obvious error
+}
+
+void g()
+{
+    string buffer = ".................................";
+    f(buffer);
+    // ...
+}
+
+```
+
+Here, the writer of`g()`is supplying a buffer for`f()`to fill, but`f()`simply replaces it \(at a somewhat higher cost than a simple copy of the characters\). A bad logic error can happen if the writer of`g()`incorrectly assumes the size of the`buffer`.
+
+##### Enforcement {#enforcement-38}
+
+* \(Moderate\) \(\(Foundation\)\) Warn about functions regarding reference to non-
+  `const`
+  parameters that do
+  _not_
+  write to them.
+* \(Simple\) \(\(Foundation\)\) Warn when a non-
+  `const`
+  parameter being passed by reference is
+  `move`
+  d.
+
+### F.18: For “consume” parameters, pass by`X&&`and`std::move`the parameter {#f18-for-consume-parameters-pass-by-x-and-stdmove-the-parameter}
+
+##### Reason {#reason-43}
+
+It’s efficient and eliminates bugs at the call site:`X&&`binds to rvalues, which requires an explicit`std::move`at the call site if passing an lvalue.
+
+##### Example {#example-43}
+
+```
+void sink(vector
+<
+int
+>
+&
+&
+ v) {   // sink takes ownership of whatever the argument owned
+    // usually there might be const accesses of v here
+    store_somewhere(std::move(v));
+    // usually no more use of v here; it is moved-from
+}
+
+```
+
+Note that the`std::move(v)`makes it possible for`store_somewhere()`to leave`v`in a moved-from state.[That could be dangerous](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-move-semantic).
+
+##### Exception {#exception-10}
+
+Unique owner types that are move-only and cheap-to-move, such as`unique_ptr`, can also be passed by value which is simpler to write and achieves the same effect. Passing by value does generate one extra \(cheap\) move operation, but prefer simplicity and clarity first.
+
+For example:
+
+```
+template 
+<
+class T
+>
+
+void sink(std::unique_ptr
+<
+T
+>
+ p) {
+    // use p ... possibly std::move(p) onward somewhere else
+}   // p gets destroyed
+
+```
+
+##### Enforcement {#enforcement-39}
+
+* Flag all
+  `X`
+  `&`
+  `&`
+  parameters \(where
+  `X`
+  is not a template type parameter name\) where the function body uses them without
+  `std::move`
+  .
+* Flag access to moved-from objects.
+* Don’t conditionally move from objects
+
   
+
+
 
 
