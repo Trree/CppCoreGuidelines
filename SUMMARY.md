@@ -6,7 +6,7 @@
 * [P: Philosophy](p-philosophy.md)
 * [I: Interfaces](i-interfaces.md)
 * [F: Functions](f-functions.md)
-* C: Classes and Class Hierarchies
+* [C: Classes and Class Hierarchies](c-classes-and-class-hierarchies.md)
 * Enum: Enumerations
 * R: Resource management
 * ES: Expressions and Statements
