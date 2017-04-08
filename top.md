@@ -29,9 +29,10 @@ You can[read an explanation of the scope and structure of this Guide](http://iso
 * [Enum: Enumerations](/enum-enumerations.md)
 * [R: Resource management](/r-resource-management.md)
 * [ES: Expressions and Statements](/es-expressions-and-statements.md)
-* [i-interfaces.md](/i-interfaces.md)
+* * [i-interfaces.md](/i-interfaces.md)
 
 * [P: Philosophy](https://trree.gitbooks.io/cppcoreguidelines/content/p-philosophy.html)
+
 * * [I: Interfaces](https://trree.gitbooks.io/cppcoreguidelines/content/i-interfaces.html)
 * [F: Functions](https://trree.gitbooks.io/cppcoreguidelines/content/f-functions.html)
 * [C: Classes and class hierarchies](https://trree.gitbooks.io/cppcoreguidelines/content/c-classes-and-class-hierarchies.html)
