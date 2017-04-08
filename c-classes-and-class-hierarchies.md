@@ -1,11 +1,11 @@
-# <a name="S-class"></a>C: Classes and Class Hierarchies
+# C: Classes and Class Hierarchies
 
 A class is a user-defined type, for which a programmer can define the representation, operations, and interfaces.
 Class hierarchies are used to organize related classes into hierarchical structures.
 
 Class rule summary:
 
-* [C.1: Organize related data into structures (`struct`s or `class`es)](#Rc-org)
+* [C.1: Organize related data into structures (`struct`s or `class`es)](#C.1: Organize related data into structures (`struct`s or `class`es))
 * [C.2: Use `class` if the class has an invariant; use `struct` if the data members can vary independently](#Rc-struct)
 * [C.3: Represent the distinction between an interface and an implementation using a class](#Rc-interface)
 * [C.4: Make a function a member only if it needs direct access to the representation of a class](#Rc-member)
@@ -24,7 +24,7 @@ Subsections:
 * [C.over: Overloading and overloaded operators](#SS-overload)
 * [C.union: Unions](#SS-union)
 
-### <a name="Rc-org">C.1: Organize related data into structures (`struct`s or `class`es)</a>
+### C.1: Organize related data into structures (`struct`s or `class`es)
 
 ##### Reason
 
