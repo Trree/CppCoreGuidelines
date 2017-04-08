@@ -22,12 +22,17 @@ Problems:
 You can[read an explanation of the scope and structure of this Guide](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-abstract)or just jump straight in:
 
 * [in-introduction](/in-introduction.md)
-* [p-philosophy.md](/p-philosophy.md)
+* [p-philosophy](/p-philosophy.md)
+* [I: Interfaces](/i-interfaces.md)
+* [F: Functions](/f-functions.md)
+* [C: Classes and Class Hierarchies](/c-classes-and-class-hierarchies.md)
+* [Enum: Enumerations](/enum-enumerations.md)
+* [R: Resource management](/r-resource-management.md)
+* [ES: Expressions and Statements](/es-expressions-and-statements.md)
 * [i-interfaces.md](/i-interfaces.md)
 
-* [In: Introduction](https://trree.gitbooks.io/cppcoreguidelines/content/in-introduction.html)
 * [P: Philosophy](https://trree.gitbooks.io/cppcoreguidelines/content/p-philosophy.html)
-* [I: Interfaces](https://trree.gitbooks.io/cppcoreguidelines/content/i-interfaces.html)
+* * [I: Interfaces](https://trree.gitbooks.io/cppcoreguidelines/content/i-interfaces.html)
 * [F: Functions](https://trree.gitbooks.io/cppcoreguidelines/content/f-functions.html)
 * [C: Classes and class hierarchies](https://trree.gitbooks.io/cppcoreguidelines/content/c-classes-and-class-hierarchies.html)
 * [Enum: Enumerations](https://trree.gitbooks.io/cppcoreguidelines/content/enum-enumerations.html)
