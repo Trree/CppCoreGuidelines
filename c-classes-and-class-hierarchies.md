@@ -47,7 +47,7 @@ From a language perspective `class` and `struct` differ only in the default visi
 
 Probably impossible. Maybe a heuristic looking for data items used together is possible.
 
-### <a name="Rc-struct"></a>C.2: Use `class` if the class has an invariant; use `struct` if the data members can vary independently
+### <span id="Rc-struct"></span>C.2: Use `class` if the class has an invariant; use `struct` if the data members can vary independently
 
 ##### Reason
 
@@ -99,7 +99,7 @@ This effectively means the definer need to define an invariant.
 
 Look for `struct`s with all data private and `class`es with public members.
 
-### <a name="Rc-interface"></a>C.3: Represent the distinction between an interface and an implementation using a class
+### <span id="Rc-interface"></span>C.3: Represent the distinction between an interface and an implementation using a class
 
 ##### Reason
 
@@ -132,7 +132,7 @@ Ideally, and typically, an interface is far more stable than its implementation(
 
 ???
 
-### <a name="Rc-member"></a>C.4: Make a function a member only if it needs direct access to the representation of a class
+### <span id="Rc-member"></span>C.4: Make a function a member only if it needs direct access to the representation of a class
 
 ##### Reason
 
@@ -191,7 +191,7 @@ Typically, some but not all of such functions directly access `private` data.
 * Ignore functions that are part of an overload set out of which at least one function accesses `private` members.
 * Ignore functions returning `this`.
 
-### <a name="Rc-helper"></a>C.5: Place helper functions in the same namespace as the class they support
+### <span id="Rc-helper"></span>C.5: Place helper functions in the same namespace as the class they support
 
 ##### Reason
 
@@ -219,7 +219,7 @@ This is especially important for [overloaded operators](#Ro-namespace).
 
 * Flag global functions taking argument types from a single namespace.
 
-### <a name="Rc-standalone"></a>C.7: Don't define a class or enum and declare a variable of its type in the same statement
+### <span id="Rc-standalone"></span>C.7: Don't define a class or enum and declare a variable of its type in the same statement
 
 ##### Reason
 
@@ -238,7 +238,7 @@ Mixing a type definition and the definition of another entity in the same declar
 
 * Flag if the `}` of a class or enumeration definition is not followed by a `;`. The `;` is missing.
 
-### <a name="Rc-class"></a>C.8: Use `class` rather than `struct` if any member is non-public
+### <span id="Rc-class"></span>C.8: Use `class` rather than `struct` if any member is non-public
 
 ##### Reason
 
@@ -272,7 +272,7 @@ Prefer to place the interface first in a class [see](#Rl-order).
 
 Flag classes declared with `struct` if there is a `private` or `public` member.
 
-### <a name="Rc-private"></a>C.9: Minimize exposure of members
+### <span id="Rc-private"></span>C.9: Minimize exposure of members
 
 ##### Reason
 
@@ -308,7 +308,7 @@ Concrete type rule summary:
 * [C.10: Prefer concrete types over class hierarchies](#Rc-concrete)
 * [C.11: Make concrete types regular](#Rc-regular)
 
-### <a name="Rc-concrete"></a>C.10 Prefer concrete types over class hierarchies
+### <span id="Rc-concrete"></span>C.10 Prefer concrete types over class hierarchies
 
 ##### Reason
 
@@ -358,7 +358,7 @@ This is done where dynamic allocation is prohibited (e.g. hard real-time) and to
 
 ???
 
-### <a name="Rc-regular"></a>C.11: Make concrete types regular
+### <span id="Rc-regular"></span>C.11: Make concrete types regular
 
 ##### Reason
 
@@ -388,7 +388,7 @@ In particular, if a concrete type has an assignment also give it an equals opera
 
 ???
 
-## <a name="S-ctor"></a>C.ctor: Constructors, assignments, and destructors
+## <span id="S-ctor"></span>C.ctor: Constructors, assignments, and destructors
 
 These functions control the lifecycle of objects: creation, copy, move, and destruction.
 Define constructors to guarantee and simplify initialization of classes.
@@ -463,12 +463,12 @@ Other default operations rules:
 * [C.87: Beware of `==` on base classes](#Rc-eq-base)
 * [C.89: Make a `hash` `noexcept`](#Rc-hash)
 
-## <a name="SS-defop"></a>C.defop: Default Operations
+## <span id="SS-defop"></span>C.defop: Default Operations
 
 By default, the language supplies the default operations with their default semantics.
 However, a programmer can disable or replace these defaults.
 
-### <a name="Rc-zero"></a>C.20: If you can avoid defining default operations, do
+### <span id="Rc-zero"></span>C.20: If you can avoid defining default operations, do
 
 ##### Reason
 
@@ -498,7 +498,7 @@ This is known as "the rule of zero".
 (Not enforceable) While not enforceable, a good static analyzer can detect patterns that indicate a possible improvement to meet this rule.
 For example, a class with a (pointer, size) pair of member and a destructor that `delete`s the pointer could probably be converted to a `vector`.
 
-### <a name="Rc-five"></a>C.21: If you define or `=delete` any default operation, define or `=delete` them all
+### <span id="Rc-five"></span>C.21: If you define or `=delete` any default operation, define or `=delete` them all
 
 ##### Reason
 
@@ -547,7 +547,7 @@ Relying on an implicitly generated copy operation in a class with a destructor i
 
 (Simple) A class should have a declaration (even a `=delete` one) for either all or none of the special functions.
 
-### <a name="Rc-matched"></a>C.22: Make default operations consistent
+### <span id="Rc-matched"></span>C.22: Make default operations consistent
 
 ##### Reason
 
@@ -560,12 +560,12 @@ Users will be surprised if copy/move construction and copy/move assignment do lo
         class Impl {
             // ...
         };
-        shared_ptr<Impl> p;
-    public:
-        Silly(const Silly& a) : p{a.p} { *p = *a.p; }   // deep copy
-        Silly& operator=(const Silly& a) { p = a.p; }   // shallow copy
-        // ...
-    };
+      shared_ptr<Impl> p;
+  public:
+      Silly(const Silly& a) : p{a.p} { *p = *a.p; }   // deep copy
+      Silly& operator=(const Silly& a) { p = a.p; }   // shallow copy
+      // ...
+  };
 
 These operations disagree about copy semantics. This will lead to confusion and bugs.
 
@@ -576,14 +576,14 @@ These operations disagree about copy semantics. This will lead to confusion and 
 * (Complex) If a copy/move constructor performs a deep copy of a member variable, then the destructor should modify the member variable.
 * (Complex) If a destructor is modifying a member variable, that member variable should be written in any copy/move constructors or assignment operators.
 
-## <a name="SS-dtor"></a>C.dtor: Destructors
+## <span id="SS-dtor"></span>C.dtor: Destructors
 
 "Does this class need a destructor?" is a surprisingly powerful design question.
 For most classes the answer is "no" either because the class holds no resources or because destruction is handled by [the rule of zero](#Rc-zero);
 that is, its members can take care of themselves as concerns destruction.
 If the answer is "yes", much of the design of the class follows (see [the rule of five](#Rc-five)).
 
-### <a name="Rc-dtor"></a>C.30: Define a destructor if a class needs an explicit action at object destruction
+### <span id="Rc-dtor"></span>C.30: Define a destructor if a class needs an explicit action at object destruction
 
 ##### Reason
 
@@ -645,7 +645,7 @@ If the default destructor is needed, but its generation has been suppressed (e.g
 
 Look for likely "implicit resources", such as pointers and references. Look for classes with destructors even though all their data members have destructors.
 
-### <a name="Rc-dtor-release"></a>C.31: All resources acquired by a class must be released by the class's destructor
+### <span id="Rc-dtor-release"></span>C.31: All resources acquired by a class must be released by the class's destructor
 
 ##### Reason
 
@@ -702,7 +702,7 @@ Here `p` refers to `pp` but does not own it.
 * (Hard) Determine if pointer or reference member variables are owners when there is no explicit statement of ownership
   (e.g., look into the constructors).
 
-### <a name="Rc-dtor-ptr"></a>C.32: If a class has a raw pointer (`T*`) or reference (`T&`), consider whether it might be owning
+### <span id="Rc-dtor-ptr"></span>C.32: If a class has a raw pointer (`T*`) or reference (`T&`), consider whether it might be owning
 
 ##### Reason
 
@@ -721,7 +721,7 @@ This will aid documentation and analysis.
 
 Look at the initialization of raw member pointers and member references and see if an allocation is used.
 
-### <a name="Rc-dtor-ptr2"></a>C.33: If a class has an owning pointer member, define a destructor
+### <span id="Rc-dtor-ptr2"></span>C.33: If a class has an owning pointer member, define a destructor
 
 ##### Reason
 
@@ -794,7 +794,7 @@ That would sometimes require non-trivial code changes and may affect ABIs.
 * A class with a pointer data member is suspect.
 * A class with an `owner<T>` should define its default operations.
 
-### <a name="Rc-dtor-ref"></a>C.34: If a class has an owning reference member, define a destructor
+### <span id="Rc-dtor-ref"></span>C.34: If a class has an owning reference member, define a destructor
 
 ##### Reason
 
@@ -852,7 +852,7 @@ Also, that may affect ABIs.
 * A class with a reference data member is suspect.
 * A class with an `owner<T>` reference should define its default operations.
 
-### <a name="Rc-dtor-virtual"></a>C.35: A base class destructor should be either public and virtual, or protected and nonvirtual
+### <span id="Rc-dtor-virtual"></span>C.35: A base class destructor should be either public and virtual, or protected and nonvirtual
 
 ##### Reason
 
@@ -911,7 +911,7 @@ We can imagine one case where you could want a protected virtual destructor: Whe
 
 * A class with any virtual functions should have a destructor that is either public and virtual or else protected and nonvirtual.
 
-### <a name="Rc-dtor-fail"></a>C.36: A destructor may not fail
+### <span id="Rc-dtor-fail"></span>C.36: A destructor may not fail
 
 ##### Reason
 
@@ -965,7 +965,7 @@ If a destructor uses operations that may fail, it can catch exceptions and in so
 
 (Simple) A destructor should be declared `noexcept` if it could throw.
 
-### <a name="Rc-dtor-noexcept"></a>C.37: Make destructors `noexcept`
+### <span id="Rc-dtor-noexcept"></span>C.37: Make destructors `noexcept`
 
 ##### Reason
 
@@ -979,11 +979,11 @@ A destructor (either user-defined or compiler-generated) is implicitly declared 
 
 (Simple) A destructor should be declared `noexcept` if it could throw.
 
-## <a name="SS-ctor"></a>C.ctor: Constructors
+## <span id="SS-ctor"></span>C.ctor: Constructors
 
 A constructor defines how an object is initialized (constructed).
 
-### <a name="Rc-ctor"></a>C.40: Define a constructor if a class has an invariant
+### <span id="Rc-ctor"></span>C.40: Define a constructor if a class has an invariant
 
 ##### Reason
 
@@ -1041,7 +1041,7 @@ Also, the default for `int` would be better done as a [member initializer](#Rc-i
 
 * Flag classes with user-defined copy operations but no constructor (a user-defined copy is a good indicator that the class has an invariant)
 
-### <a name="Rc-complete"></a>C.41: A constructor should create a fully initialized object
+### <span id="Rc-complete"></span>C.41: A constructor should create a fully initialized object
 
 ##### Reason
 
@@ -1084,7 +1084,7 @@ If a valid object cannot conveniently be constructed by a constructor, [use a fa
 If a constructor acquires a resource (to create a valid object), that resource should be [released by the destructor](#Rc-dtor-release).
 The idiom of having constructors acquire resources and destructors release them is called [RAII](#Rr-raii) ("Resource Acquisition Is Initialization").
 
-### <a name="Rc-throw"></a>C.42: If a constructor cannot construct a valid object, throw an exception
+### <span id="Rc-throw"></span>C.42: If a constructor cannot construct a valid object, throw an exception
 
 ##### Reason
 
@@ -1169,7 +1169,7 @@ Another reason is been to delay initialization until an object is needed; the so
 
 ##### Enforcement
 
-### <a name="Rc-default0"></a>C.43: Ensure that a class has a default constructor
+### <span id="Rc-default0"></span>C.43: Ensure that a class has a default constructor
 
 ##### Reason
 
@@ -1248,7 +1248,7 @@ Assuming that you want initialization, an explicit default initialization can he
 
 * Flag classes without a default constructor
 
-### <a name="Rc-default00"></a>C.44: Prefer default constructors to be simple and non-throwing
+### <span id="Rc-default00"></span>C.44: Prefer default constructors to be simple and non-throwing
 
 ##### Reason
 
@@ -1296,7 +1296,7 @@ Setting a `Vector1` to empty after detecting an error is trivial.
 
 * Flag throwing default constructors
 
-### <a name="Rc-default"></a>C.45: Don't define a default constructor that only initializes data members; use in-class member initializers instead
+### <span id="Rc-default"></span>C.45: Don't define a default constructor that only initializes data members; use in-class member initializers instead
 
 ##### Reason
 
@@ -1326,7 +1326,7 @@ Using in-class member initializers lets the compiler generate the function for y
 
 (Simple) A default constructor should do more than just initialize member variables with constants.
 
-### <a name="Rc-explicit"></a>C.46: By default, declare single-argument constructors explicit
+### <span id="Rc-explicit"></span>C.46: By default, declare single-argument constructors explicit
 
 ##### Reason
 
@@ -1362,7 +1362,7 @@ If you really want an implicit conversion from the constructor argument type to 
 
 (Simple) Single-argument constructors should be declared `explicit`. Good single argument non-`explicit` constructors are rare in most code based. Warn for all that are not on a "positive list".
 
-### <a name="Rc-order"></a>C.47: Define and initialize member variables in the order of member declaration
+### <span id="Rc-order"></span>C.47: Define and initialize member variables in the order of member declaration
 
 ##### Reason
 
@@ -1386,7 +1386,7 @@ To minimize confusion and errors. That is the order in which the initialization 
 
 **See also**: [Discussion](#Sd-order)
 
-### <a name="Rc-in-class-initializer"></a>C.48: Prefer in-class initializers to member initializers in constructors for constant initializers
+### <span id="Rc-in-class-initializer"></span>C.48: Prefer in-class initializers to member initializers in constructors for constant initializers
 
 ##### Reason
 
@@ -1435,7 +1435,7 @@ How would a maintainer know whether `j` was deliberately uninitialized (probably
 * (Simple) Every constructor should initialize every member variable (either explicitly, via a delegating ctor call or via default construction).
 * (Simple) Default arguments to constructors suggest an in-class initializer may be more appropriate.
 
-### <a name="Rc-initialize"></a>C.49: Prefer initialization to assignment in constructors
+### <span id="Rc-initialize"></span>C.49: Prefer initialization to assignment in constructors
 
 ##### Reason
 
@@ -1466,7 +1466,7 @@ An initialization explicitly states that initialization, rather than assignment,
         // ...
     };
 
-### <a name="Rc-factory"></a>C.50: Use a factory function if you need "virtual behavior" during initialization
+### <span id="Rc-factory"></span>C.50: Use a factory function if you need "virtual behavior" during initialization
 
 ##### Reason
 
@@ -1530,7 +1530,7 @@ Conventional factory functions allocate on the free store, rather than on the st
 
 **See also**: [Discussion](#Sd-factory)
 
-### <a name="Rc-delegating"></a>C.51: Use delegating constructors to represent common actions for all constructors of a class
+### <span id="Rc-delegating"></span>C.51: Use delegating constructors to represent common actions for all constructors of a class
 
 ##### Reason
 
@@ -1577,7 +1577,7 @@ The common action gets tedious to write and may accidentally not be common.
 
 (Moderate) Look for similar constructor bodies.
 
-### <a name="Rc-inheriting"></a>C.52: Use inheriting constructors to import constructors into a derived class that does not need further explicit initialization
+### <span id="Rc-inheriting"></span>C.52: Use inheriting constructors to import constructors into a derived class that does not need further explicit initialization
 
 ##### Reason
 
@@ -1611,13 +1611,13 @@ If you need those constructors for a derived class, re-implementing them is tedi
 
 Make sure that every member of the derived class is initialized.
 
-## <a name="SS-copy"></a>C.copy: Copy and move
+## <span id="SS-copy"></span>C.copy: Copy and move
 
 Value types should generally be copyable, but interfaces in a class hierarchy should not.
 Resource handles may or may not be copyable.
 Types can be defined to move for logical as well as performance reasons.
 
-### <a name="Rc-copy-assignment"></a>C.60: Make copy assignment non-`virtual`, take the parameter by `const&`, and return by non-`const&`
+### <span id="Rc-copy-assignment"></span>C.60: Make copy assignment non-`virtual`, take the parameter by `const&`, and return by non-`const&`
 
 ##### Reason
 
@@ -1687,7 +1687,7 @@ See [copy constructor vs. `clone()`](#Rc-copy-virtual).
 * (Moderate) An assignment operator should (implicitly or explicitly) invoke all base and member assignment operators.
   Look at the destructor to determine if the type has pointer semantics or value semantics.
 
-### <a name="Rc-copy-semantic"></a>C.61: A copy operation should copy
+### <span id="Rc-copy-semantic"></span>C.61: A copy operation should copy
 
 ##### Reason
 
@@ -1758,7 +1758,7 @@ Prefer copy semantics unless you are building a "smart pointer". Value semantics
 
 (Not enforceable)
 
-### <a name="Rc-copy-self"></a>C.62: Make copy assignment safe for self-assignment
+### <span id="Rc-copy-self"></span>C.62: Make copy assignment safe for self-assignment
 
 ##### Reason
 
@@ -1824,7 +1824,7 @@ Consider:
 
 (Simple) Assignment operators should not contain the pattern `if (this == &a) return *this;` ???
 
-### <a name="Rc-move-assignment"></a>C.63: Make move assignment non-`virtual`, take the parameter by `&&`, and return by non-`const &`
+### <span id="Rc-move-assignment"></span>C.63: Make move assignment non-`virtual`, take the parameter by `&&`, and return by non-`const &`
 
 ##### Reason
 
@@ -1840,7 +1840,7 @@ Equivalent to what is done for [copy-assignment](#Rc-copy-assignment).
 * (Simple) An assignment operator should return `T&` to enable chaining, not alternatives like `const T&` which interfere with composability and putting objects in containers.
 * (Moderate) A move assignment operator should (implicitly or explicitly) invoke all base and member move assignment operators.
 
-### <a name="Rc-move-semantic"></a>C.64: A move operation should move and leave its source in a valid state
+### <span id="Rc-move-semantic"></span>C.64: A move operation should move and leave its source in a valid state
 
 ##### Reason
 
@@ -1895,7 +1895,7 @@ Unless there is an exceptionally strong reason not to, make `x = std::move(y); y
 
 (Not enforceable) Look for assignments to members in the move operation. If there is a default constructor, compare those assignments to the initializations in the default constructor.
 
-### <a name="Rc-move-self"></a>C.65: Make move assignment safe for self-assignment
+### <span id="Rc-move-self"></span>C.65: Make move assignment safe for self-assignment
 
 ##### Reason
 
@@ -1944,7 +1944,7 @@ Here is a way to move a pointer without a test (imagine it as code in the implem
 * (Moderate) In the case of self-assignment, a move assignment operator should not leave the object holding pointer members that have been `delete`d or set to `nullptr`.
 * (Not enforceable) Look at the use of standard-library container types (incl. `string`) and consider them safe for ordinary (not life-critical) uses.
 
-### <a name="Rc-move-noexcept"></a>C.66: Make move operations `noexcept`
+### <span id="Rc-move-noexcept"></span>C.66: Make move operations `noexcept`
 
 ##### Reason
 
@@ -1985,7 +1985,7 @@ This `Vector2` is not just inefficient, but since a vector copy requires allocat
 
 (Simple) A move operation should be marked `noexcept`.
 
-### <a name="Rc-copy-virtual"></a>C.67: A base class should suppress copying, and provide a virtual `clone` instead if "copying" is desired
+### <span id="Rc-copy-virtual"></span>C.67: A base class should suppress copying, and provide a virtual `clone` instead if "copying" is desired
 
 ##### Reason
 
@@ -2044,7 +2044,7 @@ In addition to the operations for which the language offer default implementatio
 there are a few operations that are so foundational that it rules for their definition are needed:
 comparisons, `swap`, and `hash`.
 
-### <a name="Rc-eqdefault"></a>C.80: Use `=default` if you have to be explicit about using the default semantics
+### <span id="Rc-eqdefault"></span>C.80: Use `=default` if you have to be explicit about using the default semantics
 
 ##### Reason
 
@@ -2086,7 +2086,7 @@ Writing out the bodies of the copy and move operations is verbose, tedious, and 
 
 (Moderate) The body of a special operation should not have the same accessibility and semantics as the compiler-generated version, because that would be redundant
 
-### <a name="Rc-delete"></a>C.81: Use `=delete` when you want to disable default behavior (without wanting an alternative)
+### <span id="Rc-delete"></span>C.81: Use `=delete` when you want to disable default behavior (without wanting an alternative)
 
 ##### Reason
 
@@ -2136,7 +2136,7 @@ A `unique_ptr` can be moved, but not copied. To achieve that its copy operations
 
 The elimination of a default operation is (should be) based on the desired semantics of the class. Consider such classes suspect, but maintain a "positive list" of classes where a human has asserted that the semantics is correct.
 
-### <a name="Rc-ctor-virtual"></a>C.82: Don't call virtual functions in constructors and destructors
+### <span id="Rc-ctor-virtual"></span>C.82: Don't call virtual functions in constructors and destructors
 
 ##### Reason
 
@@ -2188,7 +2188,7 @@ However, experience shows that such calls are rarely needed, easily confuse main
 
 * Flag calls of virtual functions from constructors and destructors.
 
-### <a name="Rc-swap"></a>C.83: For value-like types, consider providing a `noexcept` swap function
+### <span id="Rc-swap"></span>C.83: For value-like types, consider providing a `noexcept` swap function
 
 ##### Reason
 
@@ -2221,7 +2221,7 @@ Providing a nonmember `swap` function in the same namespace as your type for cal
 * (Simple) A class without virtual functions should have a `swap` member function declared.
 * (Simple) When a class has a `swap` member function, it should be declared `noexcept`.
 
-### <a name="Rc-swap-fail"></a>C.84: A `swap` function may not fail
+### <span id="Rc-swap-fail"></id>C.84: A `swap` function may not fail
 
 ##### Reason
 
@@ -2242,7 +2242,7 @@ This is not just slow, but if a memory allocation occurs for the elements in `tm
 
 (Simple) When a class has a `swap` member function, it should be declared `noexcept`.
 
-### <a name="Rc-swap-noexcept"></a>C.85: Make `swap` `noexcept`
+### <span id="Rc-swap-noexcept"></span>C.85: Make `swap` `noexcept`
 
 ##### Reason
 
@@ -2253,7 +2253,7 @@ If a `swap` tries to exit with an exception, it's a bad design error and the pro
 
 (Simple) When a class has a `swap` member function, it should be declared `noexcept`.
 
-### <a name="Rc-eq"></a>C.86: Make `==` symmetric with respect to operand types and `noexcept`
+### <span id="Rc-eq"></span>C.86: Make `==` symmetric with respect to operand types and `noexcept`
 
 ##### Reason
 
@@ -2298,7 +2298,7 @@ This rule applies to all the usual comparison operators: `!=`, `<`, `<=`, `>`, a
 * Flag an `operator==()` for which the argument types differ; same for other comparison operators: `!=`, `<`, `<=`, `>`, and `>=`.
 * Flag member `operator==()`s; same for other comparison operators: `!=`, `<`, `<=`, `>`, and `>=`.
 
-### <a name="Rc-eq-base"></a>C.87: Beware of `==` on base classes
+### <span id="Rc-eq-base"></span>C.87: Beware of `==` on base classes
 
 ##### Reason
 
@@ -2346,7 +2346,7 @@ This rule applies to all the usual comparison operators: `!=`, `<`, `<=`, `>`, a
 
 * Flag a virtual `operator==()`; same for other comparison operators: `!=`, `<`, `<=`, `>`, and `>=`.
 
-### <a name="Rc-hash"></a>C.89: Make a `hash` `noexcept`
+### <span id="Rc-hash"></span>C.89: Make a `hash` `noexcept`
 
 ##### Reason
 
@@ -2383,7 +2383,7 @@ That tends to work better than "cleverness" for non-specialists.
 
 * Flag throwing `hash`es.
 
-## <a name="SS-containers"></a>C.con: Containers and other resource handles
+## <span id="SS-containers"></span>C.con: Containers and other resource handles
 
 A container is an object holding a sequence of objects of some type; `std::vector` is the archetypical container.
 A resource handle is a class that owns a resource; `std::vector` is the typical resource handle; its resource is its sequence of elements.
@@ -2401,7 +2401,7 @@ Summary of container rules:
 
 **See also**: [Resources](#S-resource)
 
-## <a name="SS-lambdas"></a>C.lambdas: Function objects and lambdas
+## <span id="SS-lambdas"></span>C.lambdas: Function objects and lambdas
 
 A function object is an object supplying an overloaded `()` so that you can call it.
 A lambda expression (colloquially often shortened to "a lambda") is a notation for generating a function object.
@@ -2414,7 +2414,7 @@ Summary:
 * [F.53: Avoid capturing by reference in lambdas that will be used nonlocally, including returned, stored on the heap, or passed to another thread](#Rf-value-capture)
 * [ES.28: Use lambdas for complex initialization, especially of `const` variables](#Res-lambda-init)
 
-## <a name="SS-hier"></a>C.hier: Class hierarchies (OOP)
+## <span id="SS-hier"></span>C.hier: Class hierarchies (OOP)
 
 A class hierarchy is constructed to represent a set of hierarchically organized concepts (only).
 Typically base classes act as interfaces.
@@ -2455,7 +2455,7 @@ Accessing objects in a hierarchy rule summary:
 * [C.151: Use `make_shared()` to construct objects owned by `shared_ptr`s](#Rh-make_shared)
 * [C.152: Never assign a pointer to an array of derived class objects to a pointer to its base](#Rh-array)
 
-### <a name="Rh-domain"></a>C.120: Use class hierarchies to represent concepts with inherent hierarchical structure (only)
+### <span id="Rh-domain"></span>C.120: Use class hierarchies to represent concepts with inherent hierarchical structure (only)
 
 ##### Reason
 
@@ -2500,7 +2500,7 @@ not using this (over)general interface in favor of a particular interface found 
 * Look for classes with lots of members that do nothing but throw.
 * Flag every use of a nonpublic base class `B` where the derived class `D` does not override a virtual function or access a protected member in `B`, and `B` is not one of the following: empty, a template parameter or parameter pack of `D`, a class template specialized with `D`.
 
-### <a name="Rh-abstract"></a>C.121: If a base class is used as an interface, make it a pure abstract class
+### <span id="Rh-abstract"></span>C.121: If a base class is used as an interface, make it a pure abstract class
 
 ##### Reason
 
@@ -2543,7 +2543,7 @@ Give `Goof` a virtual destructor and all is well.
 
 * Warn on any class that contains data members and also has an overridable (non-`final`) virtual function.
 
-### <a name="Rh-separation"></a>C.122: Use abstract classes as interfaces when complete separation of interface and implementation is needed
+### <span id="Rh-separation"></span>C.122: Use abstract classes as interfaces when complete separation of interface and implementation is needed
 
 ##### Reason
 
@@ -2579,7 +2579,7 @@ Furthermore, we can update `D1` and `D2` in a ways that are not binary compatibl
 
 ## C.hierclass: Designing classes in a hierarchy:
 
-### <a name="Rh-abstract-ctor"></a>C.126: An abstract class typically doesn't need a constructor
+### <span id="Rh-abstract-ctor"></span>C.126: An abstract class typically doesn't need a constructor
 
 ##### Reason
 
@@ -2599,7 +2599,7 @@ An abstract class typically does not have any data for a constructor to initiali
 
 Flag abstract classes with constructors.
 
-### <a name="Rh-dtor"></a>C.127: A class with a virtual function should have a virtual or protected destructor
+### <span id="Rh-dtor"></span>C.127: A class with a virtual function should have a virtual or protected destructor
 
 ##### Reason
 
@@ -2632,7 +2632,7 @@ There are people who don't follow this rule because they plan to use a class onl
 * A class with any virtual functions should have a destructor that is either public and virtual or else protected and nonvirtual.
 * Flag `delete` of a class with a virtual function but no virtual destructor.
 
-### <a name="Rh-override"></a>C.128: Virtual functions should specify exactly one of `virtual`, `override`, or `final`
+### <span id="Rh-override"></span>C.128: Virtual functions should specify exactly one of `virtual`, `override`, or `final`
 
 ##### Reason
 
@@ -2671,7 +2671,7 @@ Use `virtual` only when declaring a new virtual function. Use `override` only wh
 * Flag overrides with neither `override` nor `final`.
 * Flag function declarations that use more than one of `virtual`, `override`, and `final`.
 
-### <a name="Rh-kind"></a>C.129: When designing a class hierarchy, distinguish between implementation inheritance and interface inheritance
+### <span id="Rh-kind"></span>C.129: When designing a class hierarchy, distinguish between implementation inheritance and interface inheritance
 
 ##### Reason
 
@@ -2884,7 +2884,7 @@ at the cost of the functionality being available only to users of the hierarchy.
 * ???
 
 
-### <a name="Rh-copy"></a>C.130: Redefine or prohibit copying for a base class; prefer a virtual `clone` function instead
+### <span id="Rh-copy"></span>C.130: Redefine or prohibit copying for a base class; prefer a virtual `clone` function instead
 
 ##### Reason
 
@@ -2914,7 +2914,7 @@ Note that because of language rules, the covariant return type cannot be a smart
 * Flag a class with a virtual function and a non-user-defined copy operation.
 * Flag an assignment of base class objects (objects of a class from which another has been derived).
 
-### <a name="Rh-get"></a>C.131: Avoid trivial getters and setters
+### <span id="Rh-get"></span>C.131: Avoid trivial getters and setters
 
 ##### Reason
 
@@ -2951,7 +2951,7 @@ The key to this rule is whether the semantics of the getter/setter are trivial. 
 
 Flag multiple `get` and `set` member functions that simply access a member without additional semantics.
 
-### <a name="Rh-virtual"></a>C.132: Don't make a function `virtual` without reason
+### <span id="Rh-virtual"></span>C.132: Don't make a function `virtual` without reason
 
 ##### Reason
 
@@ -2978,7 +2978,7 @@ This kind of "vector" isn't meant to be used as a base class at all.
 * Flag a class with virtual functions but no derived classes.
 * Flag a class where all member functions are virtual and have implementations.
 
-### <a name="Rh-protected"></a>C.133: Avoid `protected` data
+### <span id="Rh-protected"></span>C.133: Avoid `protected` data
 
 ##### Reason
 
@@ -2998,7 +2998,7 @@ Protected member function can be just fine.
 
 Flag classes with `protected` data.
 
-### <a name="Rh-public"></a>C.134: Ensure all non-`const` data members have the same access level
+### <span id="Rh-public"></span>C.134: Ensure all non-`const` data members have the same access level
 
 ##### Reason
 
@@ -3033,7 +3033,7 @@ Occasionally classes will mix A and B, usually for debug reasons. An encapsulate
 
 Flag any class that has non-`const` data members with different access levels.
 
-### <a name="Rh-mi-interface"></a>C.135: Use multiple inheritance to represent multiple distinct interfaces
+### <span id="Rh-mi-interface"></span>C.135: Use multiple inheritance to represent multiple distinct interfaces
 
 ##### Reason
 
@@ -3062,7 +3062,7 @@ Such interfaces are typically abstract classes.
 
 ???
 
-### <a name="Rh-mi-implementation"></a>C.136: Use multiple inheritance to represent the union of implementation attributes
+### <span id="Rh-mi-implementation"></span>C.136: Use multiple inheritance to represent the union of implementation attributes
 
 ##### Reason
 
@@ -3093,7 +3093,7 @@ or various bases from boost.intrusive (e.g. `list_base_hook` or `intrusive_ref_c
 
 ??? 
 
-### <a name="Rh-vbase"></a>C.137: Use `virtual` bases to avoid overly general base classes
+### <span id="Rh-vbase"></span>C.137: Use `virtual` bases to avoid overly general base classes
 
 ##### Reason
 
@@ -3111,7 +3111,7 @@ or various bases from boost.intrusive (e.g. `list_base_hook` or `intrusive_ref_c
 
 ???
 
-### <a name="Rh-using"></a>C.138: Create an overload set for a derived class and its bases with `using`
+### <span id="Rh-using"></span>C.138: Create an overload set for a derived class and its bases with `using`
 
 ##### Reason
 
@@ -3159,7 +3159,7 @@ For variadic bases, C++17 introduced a variadic form of the using-declaration,
 
 Diagnose name hiding
 
-### <a name="Rh-final"></a>C.139: Use `final` sparingly
+### <span id="Rh-final"></span>C.139: Use `final` sparingly
 
 ##### Reason
 
@@ -3222,7 +3222,7 @@ However, misuses are (or at least have been) far more common.
 Flag uses of `final`.
 
 
-## <a name="Rh-virtual-default-arg"></a>C.140: Do not provide different default arguments for a virtual function and an overrider
+## <span id="Rh-virtual-default-arg"></span>C.140: Do not provide different default arguments for a virtual function and an overrider
 
 ##### Reason
 
@@ -3252,7 +3252,7 @@ Flag default arguments on virtual functions if they differ between base and deri
 
 ## C.hier-access: Accessing objects in a hierarchy
 
-### <a name="Rh-poly"></a>C.145: Access polymorphic objects through pointers and references
+### <span id="Rh-poly"></span>C.145: Access polymorphic objects through pointers and references
 
 ##### Reason
 
@@ -3292,7 +3292,7 @@ You can safely access a named polymorphic object in the scope of its definition,
 
 Flag all slicing.
 
-### <a name="Rh-dynamic_cast"></a>C.146: Use `dynamic_cast` where class hierarchy navigation is unavoidable
+### <span id="Rh-dynamic_cast"></span>C.146: Use `dynamic_cast` where class hierarchy navigation is unavoidable
 
 ##### Reason
 
@@ -3390,7 +3390,7 @@ In very rare cases, if you have measured that the `dynamic_cast` overhead is mat
 
 Flag all uses of `static_cast` for downcasts, including C-style casts that perform a `static_cast`.
 
-### <a name="Rh-ptr-cast"></a>C.147: Use `dynamic_cast` to a reference type when failure to find the required class is considered an error
+### <span id="Rh-ptr-cast"></span>C.147: Use `dynamic_cast` to a reference type when failure to find the required class is considered an error
 
 ##### Reason
 
@@ -3404,7 +3404,7 @@ Casting to a reference expresses that you intend to end up with a valid object, 
 
 ???
 
-### <a name="Rh-ref-cast"></a>C.148: Use `dynamic_cast` to a pointer type when failure to find the required class is considered a valid alternative
+### <span id="Rh-ref-cast"></span>C.148: Use `dynamic_cast` to a pointer type when failure to find the required class is considered a valid alternative
 
 ##### Reason
 
@@ -3418,7 +3418,7 @@ Casting to a reference expresses that you intend to end up with a valid object, 
 
 ???
 
-### <a name="Rh-smart"></a>C.149: Use `unique_ptr` or `shared_ptr` to avoid forgetting to `delete` objects created using `new`
+### <span id="Rh-smart"></span>C.149: Use `unique_ptr` or `shared_ptr` to avoid forgetting to `delete` objects created using `new`
 
 ##### Reason
 
@@ -3439,7 +3439,7 @@ Avoid resource leaks.
 * Flag initialization of a naked pointer with the result of a `new`
 * Flag `delete` of local variable
 
-### <a name="Rh-make_unique"></a>C.150: Use `make_unique()` to construct objects owned by `unique_ptr`s
+### <span id="Rh-make_unique"></span>C.150: Use `make_unique()` to construct objects owned by `unique_ptr`s
 
 ##### Reason
 
@@ -3470,7 +3470,7 @@ It also ensures exception safety in complex expressions.
 * Flag the repetitive usage of template specialization list `<Foo>`
 * Flag variables declared to be `unique_ptr<Foo>`
 
-### <a name="Rh-make_shared"></a>C.151: Use `make_shared()` to construct objects owned by `shared_ptr`s
+### <span id="Rh-make_shared"></span>C.151: Use `make_shared()` to construct objects owned by `shared_ptr`s
 
 ##### Reason
 
@@ -3489,7 +3489,7 @@ It also gives an opportunity to eliminate a separate allocation for the referenc
 * Flag the repetitive usage of template specialization list`<Foo>`
 * Flag variables declared to be `shared_ptr<Foo>`
 
-### <a name="Rh-array"></a>C.152: Never assign a pointer to an array of derived class objects to a pointer to its base
+### <span id="Rh-array"></span>C.152: Never assign a pointer to an array of derived class objects to a pointer to its base
 
 ##### Reason
 
@@ -3516,7 +3516,7 @@ Subscripting the resulting base pointer will lead to invalid object access and p
 * Flag all combinations of array decay and base to derived conversions.
 * Pass an array as a `span` rather than as a pointer, and don't let the array name suffer a derived-to-base conversion before getting into the `span`
 
-## <a name="SS-overload"></a>C.over: Overloading and overloaded operators
+## <span id="SS-overload"></span>C.over: Overloading and overloaded operators
 
 You can overload ordinary functions, template functions, and operators.
 You cannot overload function objects.
@@ -3534,7 +3534,7 @@ Overload rule summary:
 * [C.168: Define overloaded operators in the namespace of their operands](#Ro-namespace)
 * [C.170: If you feel like overloading a lambda, use a generic lambda](#Ro-lambda)
 
-### <a name="Ro-conventional"></a>C.160: Define operators primarily to mimic conventional usage
+### <span id="Ro-conventional"></span>C.160: Define operators primarily to mimic conventional usage
 
 ##### Reason
 
@@ -3566,7 +3566,7 @@ Non-member operators should be either friends or defined in [the same namespace 
 
 Possibly impossible.
 
-### <a name="Ro-symmetric"></a>C.161: Use nonmember functions for symmetric operators
+### <span id="Ro-symmetric"></span>C.161: Use nonmember functions for symmetric operators
 
 ##### Reason
 
@@ -3581,7 +3581,7 @@ Unless you use a non-member function for (say) `==`, `a == b` and `b == a` will 
 
 Flag member operator functions.
 
-### <a name="Ro-equivalent"></a>C.162: Overload operations that are roughly equivalent
+### <span id="Ro-equivalent"></span>C.162: Overload operations that are roughly equivalent
 
 ##### Reason
 
@@ -3607,7 +3607,7 @@ These three functions all print their arguments (appropriately). Adding to the n
 
 ???
 
-### <a name="Ro-equivalent-2"></a>C.163: Overload only for operations that are roughly equivalent
+### <span id="Ro-equivalent-2"></span>C.163: Overload only for operations that are roughly equivalent
 
 ##### Reason
 
@@ -3636,7 +3636,7 @@ Be particularly careful about common and popular names, such as `open`, `move`, 
 
 ???
 
-### <a name="Ro-conversion"></a>C.164: Avoid conversion operators
+### <span id="Ro-conversion"></span>C.164: Avoid conversion operators
 
 ##### Reason
 
@@ -3675,7 +3675,7 @@ The string allocated for `s` and assigned to `p` is destroyed before it can be u
 
 Flag all conversion operators.
 
-### <a name="Ro-custom"></a>C.165: Use `using` for customization points
+### <span id="Ro-custom"></span>C.165: Use `using` for customization points
 
 ##### Reason
 
@@ -3722,7 +3722,7 @@ This is done by including the general function in the lookup for the function:
 Unlikely, except for known customization points, such as `swap`.
 The problem is that the unqualified and qualified lookups both have uses.
 
-### <a name="Ro-address-of"></a>C.166: Overload unary `&` only as part of a system of smart pointers and references
+### <span id="Ro-address-of"></span>C.166: Overload unary `&` only as part of a system of smart pointers and references
 
 ##### Reason
 
@@ -3756,7 +3756,7 @@ Note that `std::addressof()` always yields a built-in pointer.
 
 Tricky. Warn if `&` is user-defined without also defining `->` for the result type.
 
-### <a name="Ro-namespace"></a>C.168: Define overloaded operators in the namespace of their operands
+### <span id="Ro-namespace"></span>C.168: Define overloaded operators in the namespace of their operands
 
 ##### Reason
 
@@ -3821,7 +3821,7 @@ This is a special case of the rule that [helper functions should be defined in t
 
 * Flag operator definitions that are not it the namespace of their operands
 
-### <a name="Ro-overload"></a>C.167: Use an operator for an operation with its conventional meaning
+### <span id="Ro-overload"></span>C.167: Use an operator for an operation with its conventional meaning
 
 ##### Reason
 
@@ -3860,7 +3860,7 @@ Don't define those unconventionally and don't invent your own names for them.
 
 Tricky. Requires semantic insight.
 
-### <a name="Ro-lambda"></a>C.170: If you feel like overloading a lambda, use a generic lambda
+### <span id="Ro-lambda"></span>C.170: If you feel like overloading a lambda, use a generic lambda
 
 ##### Reason
 
@@ -3881,7 +3881,7 @@ You cannot overload by defining two different lambdas with the same name.
 
 The compiler catches the attempt to overload a lambda.
 
-## <a name="SS-union"></a>C.union: Unions
+## <span id="SS-union"></span>C.union: Unions
 
 A `union` is a `struct` where all members start at the same address so that it can hold only one member at a time.
 A `union` does not keep track of which member is stored so the programmer has to get it right;
@@ -3897,7 +3897,7 @@ Union rule summary:
 * [C.183: Don't use a `union` for type punning](#Ru-pun)
 * ???
 
-### <a name="Ru-union"></a>C.180: Use `union`s to save memory
+### <span id="Ru-union"></span>C.180: Use `union`s to save memory
 
 ##### Reason
 
@@ -3963,7 +3963,7 @@ But heed the warning: [Avoid "naked" `union`s](#Ru-naked)
 
 ???
 
-### <a name="Ru-naked"></a>C.181: Avoid "naked" `union`s
+### <span id="Ru-naked"></span>C.181: Avoid "naked" `union`s
 
 ##### Reason
 
@@ -4010,7 +4010,7 @@ The soon-to-be-standard `variant` type (to be found in `<variant>`) does that fo
 
 ???
 
-### <a name="Ru-anonymous"></a>C.182: Use anonymous `union`s to implement tagged unions
+### <span id="Ru-anonymous"></span>C.182: Use anonymous `union`s to implement tagged unions
 
 ##### Reason
 
@@ -4111,7 +4111,7 @@ Saving programmers from having to write such code is one reason for including `v
 
 ???
 
-### <a name="Ru-pun"></a>C.183: Don't use a `union` for type punning
+### <span id="Ru-pun"></span>C.183: Don't use a `union` for type punning
 
 ##### Reason
 
