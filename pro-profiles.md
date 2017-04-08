@@ -26,12 +26,10 @@ To suppress enforcement of a profile check, place a`suppress`annotation on a lan
 {
     // ...
 }
-
 ```
 
 Now`raw_find()`can scramble memory to its heart’s content. Obviously, suppression should be very rare.
 
-  
 Pro.safety: Type safety profile
 
 This profile makes it easier to construct code that uses types correctly and avoids inadvertent type punning. It does so by focusing on removing the primary sources of type violations, including unsafe uses of casts and unions.
@@ -69,7 +67,6 @@ double*
 (
 &
 s); // BAD
-
 ```
 
 ##### Enforcement {#enforcement-355}
@@ -113,7 +110,6 @@ cout
  p2-
 >
 get_s();
-
 ```
 
 ##### Example, bad {#example-bad-130}
@@ -153,7 +149,6 @@ Foobar
 // ...
 
 use(99, *new Foo{1, 2});  // not a Foobar
-
 ```
 
 If a class hierarchy isn’t polymorphic, avoid casting. It is entirely unsafe. Look for a better design. See also[C.146](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rh-dynamic_cast).
@@ -188,7 +183,6 @@ static const int j = 0;
 
 f(i); // silent side effect
 f(j); // undefined behavior
-
 ```
 
 ##### Example {#example-337}
@@ -215,7 +209,6 @@ public:
 private:
     Bar my_bar;
 };
-
 ```
 
 Instead, prefer to share implementations. Normally, you can just have the non-`const`function call the`const`function. However, when there is complex logic this can lead to the following pattern that still resorts to a`const_cast`:
@@ -247,7 +240,6 @@ const Foo
 private:
     Bar my_bar;
 };
-
 ```
 
 Although this pattern is safe when applied correctly, because the caller must have had a non-`const`object to begin with, it’s not ideal because the safety is hard to enforce automatically as a checker rule.
@@ -278,7 +270,6 @@ class T
  decltype(t.get_bar())
         { /* the complex logic around getting a possibly-const reference to my_bar */ }
 };
-
 ```
 
 ##### Exception {#exception-50}
@@ -345,7 +336,6 @@ static const int j = 0;
 
 f(i); // silent side effect
 f(j); // undefined behavior
-
 ```
 
 ##### Enforcement {#enforcement-358}
@@ -365,14 +355,12 @@ If`e`is of a built-in type,`T(e)`is equivalent to the error-prone`(T)e`.
 
     short s = short(i); // potentially narrowing; don't or use `narrow` or `narrow_cast`
 
-
 ##### Note {#note-303}
 
 The {}-syntax makes the desire for construction explicit and doesn’t allow narrowing
 
 ```
 f(Foo{bar});
-
 ```
 
 ##### Enforcement {#enforcement-359}
@@ -399,7 +387,6 @@ use(x); // BAD, x has not been initialized
 
 X x2{}; // GOOD
 use(x2);
-
 ```
 
 ##### Enforcement {#enforcement-360}
@@ -446,7 +433,6 @@ use(u.get
 double
 >
 ()); // throws ??? update this when standardization finalizes the variant design
-
 ```
 
 Note that just copying a union is not type-unsafe, so safe code can pass a union from one piece of unsafe code to another.
@@ -487,7 +473,6 @@ auto sum(Args... args) { // GOOD, and much more flexible
 
 sum(3, 2); // ok: 5
 sum(3.14159, 2.71828); // ok: ~5.85987
-
 ```
 
 Note: Declaring a`...`parameter is sometimes useful for techniques that don’t involve actual argument passing, notably to declare “take-anything” functions so as to disable “everything else” in an overload set or express a catchall case in a template metaprogram.
@@ -562,7 +547,6 @@ n); // OK
 &
 p[0], 3); // BAD
 }
-
 ```
 
 ##### Example, good {#example-good-15}
@@ -596,7 +580,6 @@ int
 
     use(a.data(), 3); // OK
 }
-
 ```
 
 ##### Enforcement {#enforcement-363}
@@ -623,7 +606,6 @@ int, 10
     a[-1] = 3;    // BAD -- no replacement, just don't do this
     a[10] = 4;    // BAD -- no replacement, just don't do this
 }
-
 ```
 
 ##### Example, good {#example-good-16}
@@ -668,7 +650,6 @@ int, 10
     at(a, pos / 2) = 1; // OK
     at(a, pos - 1) = 2; // OK
 }
-
 ```
 
 ##### Example, bad {#example-bad-136}
@@ -682,7 +663,6 @@ void f()
  COUNT; ++i)
         arr[i] = i; // BAD, cannot use non-constant indexer
 }
-
 ```
 
 ##### Example, good {#example-good-17}
@@ -728,7 +708,6 @@ void f2()
  COUNT; ++i)
         at(arr, i) = i;
 }
-
 ```
 
 ##### Enforcement {#enforcement-364}
@@ -747,7 +726,6 @@ void f(int i, int j)
     a[i + j] = 12;      // BAD, could be rewritten as ...
     at(a, i + j) = 12;  // OK -- bounds-checked
 }
-
 ```
 
 ### Bounds.3: No array-to-pointer decay. {#bounds3-no-array-to-pointer-decay}
@@ -769,7 +747,6 @@ void f()
 &
 a[0], 1);    // OK
 }
-
 ```
 
 ##### Example, good {#example-good-18}
@@ -794,7 +771,6 @@ int
     g(av.data(), av.length());   // OK, if you have no choice
     g1(a);                       // OK -- no decay here, instead use implicit span ctor
 }
-
 ```
 
 ##### Enforcement {#enforcement-365}
@@ -820,7 +796,6 @@ int, 10
     memset(a.data(), 0, 10);         // BAD, and contains a length error (length = 10 * sizeof(int))
     memcmp(a.data(), b.data(), 10);  // BAD, and contains a length error (length = 10 * sizeof(int))
 }
-
 ```
 
 Also,`std::array<>::fill()`or`std::fill()`or even an empty initializer are better candidate than`memset()`.
@@ -843,7 +818,6 @@ int, 10
       // ...
     }
 }
-
 ```
 
 ##### Example {#example-341}
@@ -870,7 +844,6 @@ int, 12
     v.at(0) = a.at(i);  // OK (alternative 1)
     v.at(0) = at(a, i); // OK (alternative 2)
 }
-
 ```
 
 ##### Enforcement {#enforcement-366}
@@ -890,8 +863,4 @@ int, 12
 ## Pro.lifetime: Lifetime safety profile {#prolifetime-lifetime-safety-profile}
 
 See /docs folder for the initial design. The formal rules are in progress \(as of March 2017\).
-
-
-
-
 
