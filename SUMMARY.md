@@ -15,6 +15,7 @@
 * [T: Templates and generic programming](t-templates-and-generic-programming.md)
 * [CP: Concurrency and Parallelism](cp-concurrency-and-parallelism.md)
 * [SL: The Standard Library](sl-the-standard-library.md)
+* [A: Architectural Ideas](a-architectural-ideas.md)
 * [SF: Source files](sf-source-files.md)
 * [CPL: C-style programming](cpl-c-style-programming.md)
 * [Pro: Profiles](pro-profiles.md)
