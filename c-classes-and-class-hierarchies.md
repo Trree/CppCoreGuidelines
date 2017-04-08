@@ -1217,7 +1217,7 @@ A class with members that all have default constructors implicitly gets a defaul
         vector<int> v;
     };
     
-    X x; // means X{{}, {}}; that is the empty string and the empty vector
+    X x; 
 
 Beware that built-in types are not properly default constructed:
 
@@ -3497,6 +3497,7 @@ Subscripting the resulting base pointer will lead to invalid object access and p
 
 ##### Example
 
+```
     struct B { int x; };
     struct D : B { int y; };
     
@@ -3507,6 +3508,8 @@ Subscripting the resulting base pointer will lead to invalid object access and p
     p[1].x = 7;   // overwrite D[0].y
     
     use(a);       // bad: a decays to &a[0] which is converted to a B*
+
+```
 
 ##### Enforcement
 
