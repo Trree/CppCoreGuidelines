@@ -21,6 +21,10 @@ Problems:
 
 You can[read an explanation of the scope and structure of this Guide](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-abstract)or just jump straight in:
 
+* [in-introduction](/in-introduction.md)
+* [p-philosophy.md](/p-philosophy.md)
+* [i-interfaces.md](/i-interfaces.md)
+
 * [In: Introduction](https://trree.gitbooks.io/cppcoreguidelines/content/in-introduction.html)
 * [P: Philosophy](https://trree.gitbooks.io/cppcoreguidelines/content/p-philosophy.html)
 * [I: Interfaces](https://trree.gitbooks.io/cppcoreguidelines/content/i-interfaces.html)
