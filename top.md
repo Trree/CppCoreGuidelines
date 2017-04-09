@@ -1,4 +1,4 @@
-# C++ Core Guidelines {#c-core-guidelines}
+# C++ Core Guidelines 
 
 April 3, 2017
 
@@ -7,19 +7,19 @@ Editors:
 * [Bjarne Stroustrup](http://www.stroustrup.com/)
 * [Herb Sutter](http://herbsutter.com/)
 
-This document is a very early draft. It is inkorrekt, incompleat, and pÂµÃoorly formatted. Had it been an open source \(code\) project, this would have been release 0.7. Copying, use, modification, and creation of derivative works from this project is licensed under an MIT-style license. Contributing to this project requires agreeing to a Contributor License. See the accompanying[LICENSE](http://isocpp.github.io/CppCoreGuidelines/LICENSE)file for details. We make this project available to “friendly users” to use, copy, modify, and derive from, hoping for constructive input.
+这个文档是非常早的一个草稿，它是不正确的，不完整的。现在它已经成为一个开源的项目，发布到 0.7 版本，这个项目使用的是 MIT-sytle license ，所以你可以复制，使用，修改和再创造。为此项目做出贡献需要同意授权许可。具体的查看附件[LICENSE](http://isocpp.github.io/CppCoreGuidelines/LICENSE)。我们做这个项目提供给 “友好用户” 使用，复制，修改，再创造，并且希望有建设性的意见。
 
-Comments and suggestions for improvements are most welcome. We plan to modify and extend this document as our understanding improves and the language and the set of available libraries improve. When commenting, please note[the introduction](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-introduction)that outlines our aims and general approach. The list of contributors is[here](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#SS-ack).
+对于有益对评论和建议我们都非常欢迎。我们计划修改和拓展这篇文档，以提升我们对这门语音的理解和对可用库对改进。在你评论对时候，请注意[简介](/in-introduction.md)，这个大纲是我们的目标。大纲的贡献者在[这里](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#SS-ack)。
+
 
 Problems:
 
-* The sets of rules have not been thoroughly checked for completeness, consistency, or enforceability.
-* Triple question marks \(???\) mark known missing information
-* Update reference sections; many pre-C++11 sources are too old.
-* For a more-or-less up-to-date to-do list see:
-  [To-do: Unclassified proto-rules](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-unclassified)
+* 这些规则还没有进行完整性，一致性，和可执行型测试
+* 三个问号的标记 \(???\) 表示信息有待补充
+* 更新引用的部分，许多c++11标准之前的代码太老了
+* 对于计划性的工作请看 [To-do: Unclassified proto-rules](/to-do-unclassified-proto-rules.md)
 
-You can[read an explanation of the scope and structure of this Guide](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-abstract)or just jump straight in:
+你可以先看这个文档的[结构和解释](#S-abstract)，或者直接查看下面章节
 
 * [in-introduction](/in-introduction.md)
 * [p-philosophy](/p-philosophy.md)
@@ -39,7 +39,7 @@ You can[read an explanation of the scope and structure of this Guide](http://iso
 * [SF: Source files](/sf-source-files.md)
 * [SL: The Standard library](/sl-the-standard-library.md)
 
-Supporting sections:
+支持部分:
 
 * [A: Architectural Ideas](/a-architectural-ideas.md)
 * [N: Non-Rules and myths](/nr-non-rules-and-myths.md)
@@ -54,7 +54,7 @@ Supporting sections:
 * [Glossary](/glossary.md)
 * [To-do: Unclassified proto-rules](/to-do-unclassified-proto-rules.md)
 
-or look at a specific language feature
+或者查看特定的语言特性
 
 * [assignment]()
 * [`class`](/c-classes-and-class-hierarchies.md)
@@ -74,7 +74,7 @@ or look at a specific language feature
 * [`unsigned`]()
 * [`virtual`]()
 
-Definitions of terms used to express and discuss the rules, that are not language-technical, but refer to design and programming techniques
+用于表达和讨论的规则，那不是语言技术，而是指导设计和编程。
 
 * error
 * exception
@@ -86,23 +86,24 @@ Definitions of terms used to express and discuss the rules, that are not languag
 * resource
 * exception guarantee
 
-# Abstract {#abstract}
+# <span id="S-abstract"></span>Abstract 
 
-This document is a set of guidelines for using C++ well. The aim of this document is to help people to use modern C++ effectively. By “modern C++” we mean C++11 and C++14 \(and soon C++17\). In other words, what would you like your code to look like in 5 years’ time, given that you can start now? In 10 years’ time?
+这篇文档的一系列准则是为了更好的使用C++。目标是帮助人们更加高效的使用现代C++。“现代C++”指的是 C++11 ,C++14 和 C++17。换句话说，你会喜欢你现在写的代码还是5年前的规范，或者10年前的吗？
 
-The guidelines are focused on relatively higher-level issues, such as interfaces, resource management, memory management, and concurrency. Such rules affect application architecture and library design. Following the rules will lead to code that is statically type safe, has no resource leaks, and catches many more programming logic errors than is common in code today. And it will run fast – you can afford to do things right.
+这些准则相对来说更集中在高级问题，比如接口，资源管理，内存管理和并发。这些规则都影响着应用构建和库的设计。遵守这些规则将使你的代码是静态类型安全，没有资源泄露，能捕获更多的逻辑错误。
 
-We are less concerned with low-level issues, such as naming conventions and indentation style. However, no topic that can help a programmer is out of bounds.
+我们将更少的关心低层次的问题，像命名约定和代码风格。
+然而，没有主题可以帮助程序员明知故犯。
 
-Our initial set of rules emphasizes safety \(of various forms\) and simplicity. They may very well be too strict. We expect to have to introduce more exceptions to better accommodate real-world needs. We also need more rules.
+我们最初设置规则是强调安全和简易。他们很可能是过于严格。我们希望介绍更多的例外去适应现实需求。此外，我们也需要更多的规则。
 
-You will find some of the rules contrary to your expectations or even contrary to your experience. If we haven’t suggested you change your coding style in any way, we have failed! Please try to verify or disprove rules! In particular, we’d really like to have some of our rules backed up with measurements or better examples.
+我们将搜寻一些与你直觉或者与你的经历相悖的规则。如果我们不能建议你修改你的代码风格，那么将是我们的失败。请尝试验证或反驳规则！特别说明，我们特别需要一些更好的备份数据和例子。
 
-You will find some of the rules obvious or even trivial. Please remember that one purpose of a guideline is to help someone who is less experienced or coming from a different background or language to get up to speed.
+你会发现一些明了的，甚至琐碎的规则。请记住，一个指引的目的之一是帮助那些缺乏经验或从不同的背景或语言的人来加快学习速度。
 
-Many of the rules are designed to be supported by an analysis tool. Violations of rules will be flagged with references \(or links\) to the relevant rule. We do not expect you to memorize all the rules before trying to write code. One way of thinking about these guidelines is as a specification for tools that happens to be readable by humans.
+许多规则旨在通过分析工具来支持。违反的规则将与相关规则一起被标记。 我们不指望你尝试写代码之前，记住所有的规则。思考这些指导方针的一种方式是作为工具的规范正好是人类可读的。
 
-The rules are meant for gradual introduction into a code base. We plan to build tools for that and hope others will too.
+这些规则都是为了逐步引入一个代码库。我们计划建立这种工具，并希望其他人一起加入.
 
-Comments and suggestions for improvements are most welcome. We plan to modify and extend this document as our understanding improves and the language and the set of available libraries improve.
+对于有益对评论和建议我们都非常欢迎。我们计划修改和拓展这篇文档，以提升我们对这门语音对理解和对可用库对改进。
 
