@@ -21,15 +21,14 @@ Problems:
 
 你可以先看这个文档的[结构和解释](#S-abstract)，或者直接查看下面章节
 
-* [in-introduction](/in-introduction.md)
-* [p-philosophy](/p-philosophy.md)
+* [In-Introduction](/in-introduction.md)
+* [P-Philosophy](/p-philosophy.md)
 * [I: Interfaces](/i-interfaces.md)
 * [F: Functions](/f-functions.md)
 * [C: Classes and Class Hierarchies](/c-classes-and-class-hierarchies.md)
 * [Enum: Enumerations](/enum-enumerations.md)
 * [R: Resource management](/r-resource-management.md)
 * [ES: Expressions and Statements](/es-expressions-and-statements.md)
-* [i-interfaces.md](/i-interfaces.md)
 * [Per: Performance](/per-performance.md)
 * [CP: Concurrency](/cp-concurrency-and-parallelism.md)
 * [E: Error handling](/e-error-handling.md)
